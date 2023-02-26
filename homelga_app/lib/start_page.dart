@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -16,9 +16,17 @@ class StartPage extends StatelessWidget {
             Image.asset('images/tree.png'),
             const SizedBox(height: 30.0),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const LoginPage();
+                      },
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF1F7961),
+                    backgroundColor: const Color(0xFF1F7961),
                     minimumSize: const Size(333.0, 60.0),
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)))),
@@ -27,7 +35,7 @@ class StartPage extends StatelessWidget {
                         fontSize: 36.0,
                         fontFamily: 'Playfair',
                         fontWeight: FontWeight.w500))),
-            const SizedBox(height: 30.0),
+            const SizedBox(height: 20.0),
             TextButton(
                 onPressed: () {},
                 child: const Text('New teacher? Create an account',

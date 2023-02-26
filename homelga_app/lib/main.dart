@@ -5,6 +5,22 @@ void main() {
   runApp(const MyApp());
 }
 
+const MaterialColor darkGreen = MaterialColor(
+  0xFF1F7961,
+  <int, Color>{
+    50: Color(0xFF1F7961),
+    100: Color(0xFF1F7961),
+    200: Color(0xFF1F7961),
+    300: Color(0xFF1F7961),
+    400: Color(0xFF1F7961),
+    500: Color(0xFF1F7961),
+    600: Color(0xFF1F7961),
+    700: Color(0xFF1F7961),
+    800: Color(0xFF1F7961),
+    900: Color(0xFF1F7961),
+  },
+);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -12,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.green
+        primarySwatch: darkGreen
       ),
       home: const RootPage(),
     );
@@ -36,7 +52,7 @@ class _RootPageState extends State<RootPage> {
           end: Alignment.centerRight,
           colors: [
             Color(0xFF1F7961),
-            Color(0xFFEBC32F),
+            Color.fromARGB(255, 183, 198, 106),
           ],
         )
       ),
