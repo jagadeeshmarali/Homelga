@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "899563901706",
+    "project_id": "homelga",
+    "storage_bucket": "homelga.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899563901706:android:8315b7293ec63b68f220f3",
+        "android_client_info": {
+          "package_name": "com.example.homelga_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899563901706-osu3qvslkkoj7004vgg61atko45pidts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIc4bYCCxzGyD0JnPkh4tTtYjhDOqXqVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899563901706-osu3qvslkkoj7004vgg61atko45pidts.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "899563901706-2ps5cae67d57e6f069il2hj5h442fve4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.homelgaApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

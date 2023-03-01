@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
+FirebaseAuth auth = FirebaseAuth.instance;
+
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +66,15 @@ class LoginPage extends StatelessWidget {
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text('Username',
-                              style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                              textAlign: TextAlign.left),
+                          Text(
+                            'Email',
+                            style: TextStyle(
+                                fontSize: 24.0,
+                                fontFamily: 'Playfair',
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                            textAlign: TextAlign.left,
+                          ),
                           SizedBox(height: 10.0),
                           SizedBox(
                             width: 333.0,
@@ -95,7 +116,21 @@ class LoginPage extends StatelessWidget {
                         ]),
                     const SizedBox(height: 40.0),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          String emailAddress = emailController.text;
+                          String password = passwordController.text;
+                          try {
+                            final credential = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                    email: emailAddress, password: password);
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              print('No user found for that email.');
+                            } else if (e.code == 'wrong-password') {
+                              print('Wrong password provided for that user.');
+                            }
+                          }
+
                           // Navigator.of(context).push(
                           //   MaterialPageRoute(
                           //     builder: (BuildContext context) {
