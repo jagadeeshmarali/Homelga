@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'teacher_home.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -131,13 +132,13 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           }
 
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (BuildContext context) {
-                          //       return const LoginPage();
-                          //     },
-                          //   ),
-                          // );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return const TeacherHome();
+                              },
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF1F7961),
