@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'create_page.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -37,7 +38,15 @@ class StartPage extends StatelessWidget {
                         fontWeight: FontWeight.w500))),
             const SizedBox(height: 20.0),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const CreatePage();
+                      },
+                    ),
+                  );
+                },
                 child: const Text('New teacher? Create an account',
                     style: TextStyle(
                         fontSize: 18.0,
