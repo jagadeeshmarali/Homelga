@@ -21,7 +21,7 @@ class StartPage extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return const LoginPage();
+                        return LoginPage();
                       },
                     ),
                   );
@@ -42,7 +42,7 @@ class StartPage extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return const CreatePage();
+                        return CreatePage();
                       },
                     ),
                   );
