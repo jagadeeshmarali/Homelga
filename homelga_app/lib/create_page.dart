@@ -86,29 +86,6 @@ class CreatePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10.0),
-                              const Text('Username',
-                                  style: TextStyle(
-                                      fontSize: 24.0,
-                                      fontFamily: 'Playfair',
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-                                  textAlign: TextAlign.left),
-                              const SizedBox(height: 10.0),
-                              const SizedBox(
-                                width: 333.0,
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 10.0),
                               const Text(
                                 'Email',
                                 style: TextStyle(
@@ -161,30 +138,6 @@ class CreatePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10.0),
-                              const Text(
-                                'Confirm Password',
-                                style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white),
-                                textAlign: TextAlign.left,
-                              ),
-                              const SizedBox(height: 10.0),
-                              const SizedBox(
-                                width: 333.0,
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ]),
                         const SizedBox(height: 40.0),
                         ElevatedButton(
