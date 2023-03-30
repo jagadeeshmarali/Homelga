@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'teacher_home.dart';
 import 'start_page.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseDatabase userDatabase = FirebaseDatabase.instance;
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -12,10 +15,21 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthFlowBuilder<EmailFlowController>(
-        listener: (oldState, state, controller) {
+        listener: (oldState, state, controller) async {
       if (state is SignedIn) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const TeacherHome()));
+        final userRef = userDatabase.ref();
+        final snapshot = await userRef.child('users/$emailCtrl/type').get();
+        if (snapshot.exists) {
+          if (snapshot.value == 'teacher') {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const TeacherHome()));
+          } else if (snapshot.value == 'student') {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const TeacherHome()));
+          }
+        } else {
+          print('No data available.');
+        }
       }
     }, builder: (context, state, controller, _) {
       if (state is AwaitingEmailAndPassword) {
@@ -149,9 +163,9 @@ class LoginPage extends StatelessWidget {
                 )));
       } else if (state is SigningIn) {
         return const Center(child: CircularProgressIndicator());
-      } else if (state is AuthFailed) {
+      } /*else if (state is AuthFailed) {
         return ErrorText(exception: state.exception);
-      }
+      }*/
       return LoginPage();
     });
   }

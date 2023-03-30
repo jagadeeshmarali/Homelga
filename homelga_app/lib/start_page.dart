@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'create_page.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseDatabase database = FirebaseDatabase.instance;
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});

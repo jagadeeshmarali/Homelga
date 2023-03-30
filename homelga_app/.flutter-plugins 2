@@ -1,0 +1,20 @@
+# This is a generated file; do not edit or check into version control.
+cloud_firestore=/Users/diondupree/.pub-cache/hosted/pub.dev/cloud_firestore-4.4.3/
+cloud_firestore_web=/Users/diondupree/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.3.3/
+desktop_webview_auth=/Users/diondupree/.pub-cache/hosted/pub.dev/desktop_webview_auth-0.0.11/
+firebase_auth=/Users/diondupree/.pub-cache/hosted/pub.dev/firebase_auth-4.2.9/
+firebase_auth_web=/Users/diondupree/.pub-cache/hosted/pub.dev/firebase_auth_web-5.2.8/
+firebase_core=/Users/diondupree/.pub-cache/hosted/pub.dev/firebase_core-2.7.0/
+firebase_core_web=/Users/diondupree/.pub-cache/hosted/pub.dev/firebase_core_web-2.2.1/
+firebase_database=/Users/diondupree/.pub-cache/hosted/pub.dev/firebase_database-10.0.14/
+firebase_database_web=/Users/diondupree/.pub-cache/hosted/pub.dev/firebase_database_web-0.2.1+23/
+firebase_dynamic_links=/Users/diondupree/.pub-cache/hosted/pub.dev/firebase_dynamic_links-5.0.15/
+flutter_facebook_auth=/Users/diondupree/.pub-cache/hosted/pub.dev/flutter_facebook_auth-4.4.1+1/
+flutter_facebook_auth_web=/Users/diondupree/.pub-cache/hosted/pub.dev/flutter_facebook_auth_web-3.2.0/
+google_sign_in=/Users/diondupree/.pub-cache/hosted/pub.dev/google_sign_in-5.4.4/
+google_sign_in_android=/Users/diondupree/.pub-cache/hosted/pub.dev/google_sign_in_android-6.1.8/
+google_sign_in_ios=/Users/diondupree/.pub-cache/hosted/pub.dev/google_sign_in_ios-5.6.1/
+google_sign_in_web=/Users/diondupree/.pub-cache/hosted/pub.dev/google_sign_in_web-0.10.2+1/
+sign_in_with_apple=/Users/diondupree/.pub-cache/hosted/pub.dev/sign_in_with_apple-3.3.0/
+sign_in_with_apple_web=/Users/diondupree/.pub-cache/hosted/pub.dev/sign_in_with_apple_web-1.0.1/
+twitter_login=/Users/diondupree/.pub-cache/hosted/pub.dev/twitter_login-4.3.1/

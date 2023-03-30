@@ -6,6 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'teacher_home.dart';
 import 'login_page.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseDatabase database = FirebaseDatabase.instance;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
