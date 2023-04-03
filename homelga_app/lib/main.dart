@@ -1,11 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:homelga_app/start_page.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'teacher_home.dart';
-import 'login_page.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 FirebaseDatabase database = FirebaseDatabase.instance;

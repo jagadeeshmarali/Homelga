@@ -138,15 +138,16 @@ class CreatePage extends StatelessWidget {
                     const SizedBox(height: 40.0),
                     ElevatedButton(
                         onPressed: () async {
+                          final email = emailCtrl.text;
+                          DatabaseReference userRef =
+                              userDatabase.ref("users/$email");
                           try {
                             await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
                                     email: emailCtrl.text,
                                     password: passwordCtrl.text);
-                            DatabaseReference userRef =
-                                userDatabase.ref("users/$emailCtrl");
-                            await userRef
-                                .set({"name": nameCtrl, "type": "teacher"});
+                            await userRef.set(
+                                {"name": nameCtrl.text, "type": "teacher"});
                             // ignore: use_build_context_synchronously
                             Navigator.push(
                                 context,

@@ -3,6 +3,7 @@ import 'package:flutterfire_ui/auth.dart';
 import 'teacher_home.dart';
 import 'start_page.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
 
@@ -18,14 +19,13 @@ class LoginPage extends StatelessWidget {
         listener: (oldState, state, controller) async {
       if (state is SignedIn) {
         final userRef = userDatabase.ref();
-        final snapshot = await userRef.child('users/$emailCtrl/type').get();
+        final email = emailCtrl.text;
+        final snapshot = await userRef.child('users/$email/type').get();
         if (snapshot.exists) {
           if (snapshot.value == 'teacher') {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const TeacherHome()));
+            //go to teacher home
           } else if (snapshot.value == 'student') {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const TeacherHome()));
+            //go to student home
           }
         } else {
           print('No data available.');
