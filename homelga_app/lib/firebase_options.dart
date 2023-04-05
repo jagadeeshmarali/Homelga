@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '899563901706',
     projectId: 'homelga',
     authDomain: 'homelga.firebaseapp.com',
+    databaseURL: 'https://homelga-default-rtdb.firebaseio.com',
     storageBucket: 'homelga.appspot.com',
     measurementId: 'G-23BFP1Q8NT',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:899563901706:android:8315b7293ec63b68f220f3',
     messagingSenderId: '899563901706',
     projectId: 'homelga',
+    databaseURL: 'https://homelga-default-rtdb.firebaseio.com',
     storageBucket: 'homelga.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:899563901706:ios:d9540d4bc74efa41f220f3',
     messagingSenderId: '899563901706',
     projectId: 'homelga',
+    databaseURL: 'https://homelga-default-rtdb.firebaseio.com',
     storageBucket: 'homelga.appspot.com',
     iosClientId: '899563901706-2ps5cae67d57e6f069il2hj5h442fve4.apps.googleusercontent.com',
     iosBundleId: 'com.example.homelgaApp',
@@ -76,6 +79,7 @@ class DefaultFirebaseOptions {
     appId: '1:899563901706:ios:d9540d4bc74efa41f220f3',
     messagingSenderId: '899563901706',
     projectId: 'homelga',
+    databaseURL: 'https://homelga-default-rtdb.firebaseio.com',
     storageBucket: 'homelga.appspot.com',
     iosClientId: '899563901706-2ps5cae67d57e6f069il2hj5h442fve4.apps.googleusercontent.com',
     iosBundleId: 'com.example.homelgaApp',

@@ -4,6 +4,7 @@ import 'teacher_home.dart';
 import 'start_page.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'create_page.dart';
 
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
 
@@ -20,7 +21,7 @@ class LoginPage extends StatelessWidget {
       if (state is SignedIn) {
         final userRef = userDatabase.ref();
         final email = emailCtrl.text;
-        final snapshot = await userRef.child('users/$email/type').get();
+        final snapshot = await userRef.child('users/$id/type').get();
         if (snapshot.exists) {
           if (snapshot.value == 'teacher') {
             //go to teacher home

@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'teacher_home.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:uuid/uuid.dart';
 
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
+var uuid = const Uuid();
+var id = uuid.v4();
 
 class CreatePage extends StatelessWidget {
   CreatePage({Key? key}) : super(key: key);
@@ -138,9 +141,8 @@ class CreatePage extends StatelessWidget {
                     const SizedBox(height: 40.0),
                     ElevatedButton(
                         onPressed: () async {
-                          final email = emailCtrl.text;
                           DatabaseReference userRef =
-                              userDatabase.ref("users/$email");
+                              userDatabase.ref("users/$id");
                           try {
                             await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
