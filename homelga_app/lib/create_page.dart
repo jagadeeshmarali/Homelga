@@ -152,11 +152,14 @@ class CreatePage extends StatelessWidget {
                                     password: passwordCtrl.text);
                             await userRef.set(
                                 {"name": nameCtrl.text, "type": "teacher"});
-                            // ignore: use_build_context_synchronously
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const TeacherHome()));
+                            if (nameCtrl.text.contains(' ') &&
+                                emailCtrl.text.contains('@')) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TeacherHome()));
+                            }
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
                               errorMessage =
@@ -164,9 +167,14 @@ class CreatePage extends StatelessWidget {
                             } else if (e.code == 'email-already-in-use') {
                               errorMessage =
                                   'The account already exists for that email.';
+                            } else if (!nameCtrl.text.contains(' ')) {
+                              errorMessage = 'Please enter your full name';
+                            } else if (!emailCtrl.text.contains('@')) {
+                              errorMessage =
+                                  'Please provide a valid email address.';
                             } else {
                               errorMessage =
-                                  'There was an error creating your account. Please try again!';
+                                  'There was an error creating your account. You must enter your full name, you must provide a valid email address, and your password must contain at least 6 characters. Please try again!';
                             }
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: Colors.transparent,
@@ -275,11 +283,5 @@ class CreatePage extends StatelessWidget {
                 ),
               ],
             )));
-  } /* else if (state is SigningUp) {
-        return const Center(child: CircularProgressIndicator());
-      }
-      return CreatePage();
-    });
   }
-*/
 }

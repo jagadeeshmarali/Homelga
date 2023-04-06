@@ -14,6 +14,8 @@ class LoginPage extends StatelessWidget {
   final emailCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
 
+  var errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return AuthFlowBuilder<EmailFlowController>(
@@ -166,8 +168,8 @@ class LoginPage extends StatelessWidget {
       } else if (state is SigningIn) {
         return const Center(child: CircularProgressIndicator());
       } /*else if (state is AuthFailed) {
-        return ErrorText(exception: state.exception);
-      }*/
+        
+      } */
       return LoginPage();
     });
   }
