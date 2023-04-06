@@ -125,6 +125,7 @@ class CreatePage extends StatelessWidget {
                             width: 333.0,
                             child: TextField(
                               controller: passwordCtrl,
+                              obscureText: true,
                               decoration: const InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
