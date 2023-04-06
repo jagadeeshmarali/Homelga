@@ -2,11 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'teacher_home.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:uuid/uuid.dart';
 
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
-var uuid = const Uuid();
-var id = uuid.v4();
 
 class CreatePage extends StatelessWidget {
   CreatePage({Key? key}) : super(key: key);
@@ -143,15 +140,21 @@ class CreatePage extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () async {
                           var errorMessage = '';
-                          DatabaseReference userRef =
-                              userDatabase.ref("users/$id");
+
                           try {
-                            await FirebaseAuth.instance
+                            final userCredential = await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
                                     email: emailCtrl.text,
                                     password: passwordCtrl.text);
-                            await userRef.set(
-                                {"name": nameCtrl.text, "type": "teacher"});
+                            final user = userCredential.user;
+                            final id = user?.uid;
+                            DatabaseReference userRef =
+                                userDatabase.ref("users/$id");
+                            await userRef.set({
+                              "name": nameCtrl.text,
+                              "type": "teacher",
+                              "students": {}
+                            });
                             if (nameCtrl.text.contains(' ') &&
                                 emailCtrl.text.contains('@')) {
                               Navigator.push(
