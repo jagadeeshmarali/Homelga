@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'students.dart';
+import 'teacher_assignments.dart';
 
 class TeacherHome extends StatefulWidget {
   const TeacherHome({super.key});
@@ -22,25 +24,37 @@ class _TeacherHomeState extends State<TeacherHome> {
         )),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          // appBar: AppBar(
-          //   backgroundColor: Colors.transparent,
-          //   elevation: 0.0,
-          //   automaticallyImplyLeading: false,
-          //   leading: IconButton(
-          //       onPressed: () {
-          //         Navigator.of(context).pop();
-          //       },
-          //       icon: const Icon(Icons.arrow_back_ios),
-          //       color: Colors.white,
-          //       iconSize: 24.0,
-          //       padding: const EdgeInsets.only(left: 20.0)),
-          // ),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+                onPressed: () {
+                  // Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.settings),
+                color: Colors.white,
+                iconSize: 27.0,
+                padding: const EdgeInsets.only(left: 20.0)),
+          ),
           body: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Text('Hey Teacher!',
+                    style: TextStyle(
+                        fontSize: 36.0,
+                        fontFamily: 'Playfair',
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white)),
+                const SizedBox(height: 60.0),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Students()));
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1F7961),
                         minimumSize: const Size(333.0, 200.0),
@@ -54,7 +68,13 @@ class _TeacherHomeState extends State<TeacherHome> {
                             fontWeight: FontWeight.w500))),
                 const SizedBox(height: 40.0),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const TeacherAssignments()));
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1F7961),
                         minimumSize: const Size(333.0, 200.0),
@@ -62,20 +82,6 @@ class _TeacherHomeState extends State<TeacherHome> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0)))),
                     child: const Text('Assignments',
-                        style: TextStyle(
-                            fontSize: 36.0,
-                            fontFamily: 'Playfair',
-                            fontWeight: FontWeight.w500))),
-                const SizedBox(height: 40.0),
-                ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1F7961),
-                        minimumSize: const Size(333.0, 200.0),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)))),
-                    child: const Text('Upload',
                         style: TextStyle(
                             fontSize: 36.0,
                             fontFamily: 'Playfair',

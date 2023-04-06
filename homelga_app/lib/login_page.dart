@@ -61,7 +61,7 @@ class LoginPage extends StatelessWidget {
                       },
                       icon: const Icon(Icons.arrow_back_ios),
                       color: Colors.white,
-                      iconSize: 24.0,
+                      iconSize: 27.0,
                       padding: const EdgeInsets.only(left: 20.0)),
                 ),
                 body: Row(
