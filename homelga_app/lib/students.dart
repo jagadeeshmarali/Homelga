@@ -10,7 +10,9 @@ class Students extends StatefulWidget {
 class _StudentsState extends State<Students> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
+        padding: const EdgeInsets.all(20.0),
         decoration: const BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.centerLeft,
@@ -23,6 +25,12 @@ class _StudentsState extends State<Students> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            title: const Text('Students',
+                style: TextStyle(
+                    fontSize: 36.0,
+                    fontFamily: 'Playfair',
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white)),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             automaticallyImplyLeading: false,
@@ -47,16 +55,9 @@ class _StudentsState extends State<Students> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Text('Students',
-                    style: TextStyle(
-                        fontSize: 36.0,
-                        fontFamily: 'Playfair',
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white)),
-                const SizedBox(height: 20.0),
                 Container(
                     width: 333.0,
-                    height: 500.0,
+                    height: screenHeight * 0.8,
                     padding: const EdgeInsets.all(10.0),
                     decoration: const BoxDecoration(
                         color: Colors.white,

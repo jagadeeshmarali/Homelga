@@ -13,6 +13,7 @@ class _TeacherHomeState extends State<TeacherHome> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: const EdgeInsets.all(20.0),
         decoration: const BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.centerLeft,
