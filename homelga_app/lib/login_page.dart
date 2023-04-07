@@ -14,55 +14,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return AuthFlowBuilder<EmailFlowController>(
-        listener: (oldState, state, controller) async {
-      if (state is SignedIn) {
-        final userRef = userDatabase.ref();
-        final email = emailCtrl.text;
-        final snapshot = await userRef.child('users/$id/type').get();
-        if (snapshot.exists) {
-          if (snapshot.value == 'teacher') {
-            //go to teacher home
-          } else if (snapshot.value == 'student') {
-            //go to student home
-          }
-        } else {
-          print('No data available.');
-        }
-      }
-    }, builder: (context, state, controller, _) {
-      if (state is AwaitingEmailAndPassword) {
-        return Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Color(0xFF1F7961),
-                Color.fromARGB(255, 183, 198, 106),
-              ],
-            )),
-            child: Scaffold(
-                backgroundColor: Colors.transparent,
-                appBar: AppBar(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0.0,
-                  automaticallyImplyLeading: false,
-                  leading: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const StartPage()));
-                      },
-                      icon: const Icon(Icons.arrow_back_ios),
-                      color: Colors.white,
-                      iconSize: 27.0,
-                      padding: const EdgeInsets.only(left: 20.0)),
-                ),
-                body: Row(
-=======
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -95,7 +46,6 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
->>>>>>> 667c00722c167aef66fbc503639b90eb2cdfe060
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text('Login',

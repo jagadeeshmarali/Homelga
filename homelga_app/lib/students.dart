@@ -80,7 +80,12 @@ class _StudentsState extends State<Students> {
                                       color: Colors.black,
                                       fontFamily: 'Playfair',
                                       fontWeight: FontWeight.w500))),
-                          const SizedBox(height: 10.0),
+                          const SizedBox(height: 5.0),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1.0,
+                          ),
+                          const SizedBox(height: 5.0),
                           TextButton(
                               onPressed: () {
                                 // Navigator.of(context).push(
@@ -97,7 +102,12 @@ class _StudentsState extends State<Students> {
                                       color: Colors.black,
                                       fontFamily: 'Playfair',
                                       fontWeight: FontWeight.w500))),
-                          const SizedBox(height: 10.0),
+                          const SizedBox(height: 5.0),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1.0,
+                          ),
+                          const SizedBox(height: 5.0),
                           TextButton(
                               onPressed: () {
                                 // Navigator.of(context).push(
