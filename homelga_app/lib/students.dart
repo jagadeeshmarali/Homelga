@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Students extends StatefulWidget {
   const Students({super.key});
@@ -8,6 +11,10 @@ class Students extends StatefulWidget {
 }
 
 class _StudentsState extends State<Students> {
+  final emailCtrl = TextEditingController();
+  final nameCtrl = TextEditingController();
+  final teacherId = FirebaseAuth.instance.currentUser?.uid;
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -51,14 +58,16 @@ class _StudentsState extends State<Students> {
                         title: const Text('Add Student'),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             TextField(
-                              decoration: InputDecoration(
+                              controller: nameCtrl,
+                              decoration: const InputDecoration(
                                 hintText: 'Student Name',
                               ),
                             ),
                             TextField(
-                              decoration: InputDecoration(
+                              controller: emailCtrl,
+                              decoration: const InputDecoration(
                                 hintText: 'Student Email',
                               ),
                             ),
@@ -72,8 +81,148 @@ class _StudentsState extends State<Students> {
                             child: const Text('Cancel'),
                           ),
                           TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
+                            onPressed: () async {
+                              var errorMessage = '';
+
+                              try {
+                                final userCredential = await FirebaseAuth
+                                    .instance
+                                    .createUserWithEmailAndPassword(
+                                        email: emailCtrl.text,
+                                        password: "homelga");
+                                final user = userCredential.user;
+                                final studentId = user?.uid;
+                                DatabaseReference userRef =
+                                    userDatabase.ref("users/$studentId");
+                                await userRef.set({
+                                  "name": nameCtrl.text,
+                                  "type": "student",
+                                  "students": {}
+                                });
+                                DatabaseReference teacherRef =
+                                    userDatabase.ref("users/$teacherId");
+                                await teacherRef.child("students").set({
+                                  studentId: {
+                                    "studentName": nameCtrl.text,
+                                    "studentEmail:": emailCtrl.text
+                                  }
+                                });
+
+                                if (nameCtrl.text.contains(' ') &&
+                                    emailCtrl.text.contains('@')) {
+                                  Navigator.of(context).pop();
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'weak-password') {
+                                  errorMessage =
+                                      'The password provided is too weak.';
+                                } else if (e.code == 'email-already-in-use') {
+                                  errorMessage =
+                                      'The account already exists for that email.';
+                                } else if (!nameCtrl.text.contains(' ')) {
+                                  errorMessage = 'Please enter your full name';
+                                } else if (!emailCtrl.text.contains('@')) {
+                                  errorMessage =
+                                      'Please provide a valid email address.';
+                                } else {
+                                  errorMessage =
+                                      'There was an error creating your account. You must enter your full name, you must provide a valid email address, and your password must contain at least 6 characters. Please try again!';
+                                }
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  backgroundColor: Colors.transparent,
+                                  behavior: SnackBarBehavior.floating,
+                                  elevation: 0,
+                                  content: Stack(
+                                    alignment: Alignment.center,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(8),
+                                        height: 70,
+                                        decoration: const BoxDecoration(
+                                          color: Color.fromARGB(
+                                              255, 183, 198, 106),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15)),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 48,
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    'Oops Error!',
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    errorMessage,
+                                                    style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.white),
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                          bottom: 25,
+                                          left: 20,
+                                          child: ClipRRect(
+                                            child: Stack(
+                                              children: const [
+                                                Icon(
+                                                  Icons.circle,
+                                                  color: Color(0xFF1F7961),
+                                                  size: 17,
+                                                )
+                                              ],
+                                            ),
+                                          )),
+                                      Positioned(
+                                          top: -20,
+                                          left: 5,
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              Container(
+                                                height: 30,
+                                                width: 30,
+                                                decoration: const BoxDecoration(
+                                                  color: Color(0xFF1F7961),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(15)),
+                                                ),
+                                              ),
+                                              const Positioned(
+                                                  top: 5,
+                                                  child: Icon(
+                                                    Icons.clear_outlined,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  ))
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                ));
+                              } catch (e) {
+                                //errorMessage = String(e);
+                                print(e);
+                              }
                             },
                             child: const Text('Add'),
                           ),

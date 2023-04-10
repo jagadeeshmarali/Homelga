@@ -16,23 +16,14 @@ class TeacherHome extends StatefulWidget {
 class _TeacherHomeState extends State<TeacherHome> {
   @override
   Widget build(BuildContext context) {
-    /*String? id;
-    String userName = "";
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) {
-        id = user.uid;
-      }
+    final teacherId = FirebaseAuth.instance.currentUser?.uid;
+    DatabaseReference teacherRef = userDatabase.ref('users/$teacherId/name');
+    Stream<DatabaseEvent> stream = teacherRef.onValue;
+    String teacherName = "Teacher";
+    stream.listen((DatabaseEvent event) {
+      teacherName = jsonEncode(event.snapshot.value);
+      print(teacherName);
     });
-    if (id != null) {
-      DatabaseReference userRef = userDatabase.ref("users/$id/name");
-      Stream<DatabaseEvent> stream = userRef.onValue;
-      stream.listen((DatabaseEvent event) {
-        Object? name = event.snapshot.value;
-        userName = jsonEncode(name);
-      });
-    } else {
-      userName = "Teacher";
-    }*/
 
     return Container(
         padding: const EdgeInsets.all(20.0),
@@ -64,8 +55,8 @@ class _TeacherHomeState extends State<TeacherHome> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Text('Hey Teacher!',
-                    style: TextStyle(
+                Text('Hello $teacherName!',
+                    style: const TextStyle(
                         fontSize: 36.0,
                         fontFamily: 'Playfair',
                         fontWeight: FontWeight.w500,
