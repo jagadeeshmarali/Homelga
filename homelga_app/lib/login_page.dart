@@ -123,17 +123,19 @@ class LoginPage extends StatelessWidget {
                                     password: passwordCtrl.text);
                             final user = userCredential.user;
                             final id = user?.uid;
+                            print(id);
                             DatabaseReference typeRef =
                                 userDatabase.ref('users/$id/type');
                             DatabaseEvent event = await typeRef.once();
                             String jsonType = jsonEncode(event.snapshot.value);
-                            if (jsonType == 'teacher') {
+                            print(jsonType);
+                            if (jsonType == '"teacher"') {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const TeacherHome()));
-                            } else if (jsonType == 'student') {
+                            } else if (jsonType == '"student"') {
                               //go to student home
                             } else {
                               print('No data available.');
