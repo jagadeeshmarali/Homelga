@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'teacher_home.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-FirebaseDatabase database = FirebaseDatabase.instance;
+FirebaseDatabase userDatabase = FirebaseDatabase.instance;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

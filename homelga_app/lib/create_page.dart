@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'teacher_home.dart';
 import 'package:firebase_database/firebase_database.dart';
-
-FirebaseDatabase userDatabase = FirebaseDatabase.instance;
+import 'main.dart';
 
 class CreatePage extends StatelessWidget {
   CreatePage({Key? key}) : super(key: key);

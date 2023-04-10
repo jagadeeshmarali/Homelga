@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'students.dart';
 import 'teacher_assignments.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'main.dart';
+import 'dart:convert';
 
 class TeacherHome extends StatefulWidget {
   const TeacherHome({super.key});
@@ -12,6 +16,24 @@ class TeacherHome extends StatefulWidget {
 class _TeacherHomeState extends State<TeacherHome> {
   @override
   Widget build(BuildContext context) {
+    /*String? id;
+    String userName = "";
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null) {
+        id = user.uid;
+      }
+    });
+    if (id != null) {
+      DatabaseReference userRef = userDatabase.ref("users/$id/name");
+      Stream<DatabaseEvent> stream = userRef.onValue;
+      stream.listen((DatabaseEvent event) {
+        Object? name = event.snapshot.value;
+        userName = jsonEncode(name);
+      });
+    } else {
+      userName = "Teacher";
+    }*/
+
     return Container(
         padding: const EdgeInsets.all(20.0),
         decoration: const BoxDecoration(

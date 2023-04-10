@@ -3,8 +3,8 @@ import 'teacher_home.dart';
 import 'start_page.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-FirebaseDatabase userDatabase = FirebaseDatabase.instance;
+import 'main.dart';
+import 'dart:convert';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -123,23 +123,21 @@ class LoginPage extends StatelessWidget {
                                     password: passwordCtrl.text);
                             final user = userCredential.user;
                             final id = user?.uid;
-                            /*
                             DatabaseReference typeRef =
                                 userDatabase.ref('users/$id/type');
                             DatabaseEvent event = await typeRef.once();
-                            final type = event.snapshot.value;
-                            print(type);
-                            if (type == 'teacher') {
-                             //got to teacher home
-                            } else if (type == 'student') {
+                            String jsonType = jsonEncode(event.snapshot.value);
+                            if (jsonType == 'teacher') {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TeacherHome()));
+                            } else if (jsonType == 'student') {
                               //go to student home
                             } else {
                               print('No data available.');
-                            } */
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const TeacherHome()));
+                            }
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'user-not-found') {
                               errorMessage = 'No user found for that email.';
