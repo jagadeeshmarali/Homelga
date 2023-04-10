@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class TeacherAssignments extends StatefulWidget {
@@ -43,7 +45,52 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                 padding: const EdgeInsets.only(left: 20.0)),
             actions: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Add Assignment'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Assignment Name',
+                              ),
+                            ),
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Due Date',
+                              ),
+                            ),
+                            //big text box for the text of the assignment
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Assignment Text',
+                              ),
+                              keyboardType: TextInputType.multiline,
+                              minLines: 1,
+                              maxLines: 10,
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Add'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                   icon: const Icon(Icons.add),
                   color: Colors.white,
                   iconSize: 27.0,

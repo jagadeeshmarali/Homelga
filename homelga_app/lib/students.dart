@@ -44,7 +44,43 @@ class _StudentsState extends State<Students> {
                 padding: const EdgeInsets.only(left: 20.0)),
             actions: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Add Student'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Student Name',
+                              ),
+                            ),
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Student Email',
+                              ),
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Add'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                   icon: const Icon(Icons.add),
                   color: Colors.white,
                   iconSize: 27.0,
