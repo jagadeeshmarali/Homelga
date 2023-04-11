@@ -118,20 +118,18 @@ class _StudentsState extends State<Students> {
                                   Navigator.of(context).pop();
                                 }
                               } on FirebaseAuthException catch (e) {
-                                if (e.code == 'weak-password') {
-                                  errorMessage =
-                                      'The password provided is too weak.';
-                                } else if (e.code == 'email-already-in-use') {
+                                if (e.code == 'email-already-in-use') {
                                   errorMessage =
                                       'The account already exists for that email.';
                                 } else if (!nameCtrl.text.contains(' ')) {
-                                  errorMessage = 'Please enter your full name';
+                                  errorMessage =
+                                      'Please enter the student\'s full name';
                                 } else if (!emailCtrl.text.contains('@')) {
                                   errorMessage =
                                       'Please provide a valid email address.';
                                 } else {
                                   errorMessage =
-                                      'There was an error creating your account. You must enter your full name, you must provide a valid email address, and your password must contain at least 6 characters. Please try again!';
+                                      'There was an error adding a student. You must enter the student\'s full name and you must provide a valid email address. Please try again!';
                                 }
                                 await app.delete();
                                 ScaffoldMessenger.of(context)
