@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
@@ -82,14 +83,17 @@ class _StudentsState extends State<Students> {
                           ),
                           TextButton(
                             onPressed: () async {
+                              FirebaseApp app = await Firebase.initializeApp(
+                                  name: 'Secondary',
+                                  options: Firebase.app().options);
                               var errorMessage = '';
 
                               try {
-                                final userCredential = await FirebaseAuth
-                                    .instance
-                                    .createUserWithEmailAndPassword(
-                                        email: emailCtrl.text,
-                                        password: "homelga");
+                                UserCredential userCredential =
+                                    await FirebaseAuth.instanceFor(app: app)
+                                        .createUserWithEmailAndPassword(
+                                            email: emailCtrl.text,
+                                            password: "homelga");
                                 final user = userCredential.user;
                                 final studentId = user?.uid;
                                 DatabaseReference userRef =
@@ -101,11 +105,12 @@ class _StudentsState extends State<Students> {
                                 });
                                 DatabaseReference teacherRef =
                                     userDatabase.ref("users/$teacherId");
-                                await teacherRef.child("students").set({
-                                  studentId: {
-                                    "studentName": nameCtrl.text,
-                                    "studentEmail:": emailCtrl.text
-                                  }
+                                await teacherRef
+                                    .child("students")
+                                    .child("$studentId")
+                                    .set({
+                                  "studentName": nameCtrl.text,
+                                  "studentEmail:": emailCtrl.text
                                 });
 
                                 if (nameCtrl.text.contains(' ') &&
@@ -128,6 +133,7 @@ class _StudentsState extends State<Students> {
                                   errorMessage =
                                       'There was an error creating your account. You must enter your full name, you must provide a valid email address, and your password must contain at least 6 characters. Please try again!';
                                 }
+                                await app.delete();
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
                                   backgroundColor: Colors.transparent,
@@ -223,6 +229,8 @@ class _StudentsState extends State<Students> {
                                 //errorMessage = String(e);
                                 print(e);
                               }
+                              emailCtrl.clear;
+                              nameCtrl.clear;
                             },
                             child: const Text('Add'),
                           ),

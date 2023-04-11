@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'main.dart';
 
 import 'package:flutter/material.dart';
 
@@ -100,123 +101,123 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
           body: Center(
             child: Container(
               padding: const EdgeInsets.only(top: 20.0),
-            child: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const Students()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF1F7961),
-                            minimumSize: const Size(333.0, 150.0),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)))),
-                        child: Column(children: const [
-                          Text('Assignment Name',
-                              style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w600)),
-                          SizedBox(height: 20.0),
-                          Text('Due Date',
-                              style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white70)),
-                        ])),
-                    const SizedBox(height: 40.0),
-                    ElevatedButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const Students()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF1F7961),
-                            minimumSize: const Size(333.0, 150.0),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)))),
-                        child: Column(children: const [
-                          Text('Assignment Name',
-                              style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w600)),
-                          SizedBox(height: 20.0),
-                          Text('Due Date',
-                              style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white70)),
-                        ])),
-                    const SizedBox(height: 40.0),
-                    ElevatedButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const Students()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF1F7961),
-                            minimumSize: const Size(333.0, 150.0),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)))),
-                        child: Column(children: const [
-                          Text('Assignment Name',
-                              style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w600)),
-                          SizedBox(height: 20.0),
-                          Text('Due Date',
-                              style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white70)),
-                        ])),
-                    const SizedBox(height: 40.0),
-                    ElevatedButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const Students()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF1F7961),
-                            minimumSize: const Size(333.0, 150.0),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)))),
-                        child: Column(children: const [
-                          Text('Assignment Name',
-                              style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w600)),
-                          SizedBox(height: 20.0),
-                          Text('Due Date',
-                              style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white70)),
-                        ])),
-                  ]),
-            ),
+              child: SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const Students()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF1F7961),
+                              minimumSize: const Size(333.0, 150.0),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)))),
+                          child: Column(children: const [
+                            Text('Assignment Name',
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w600)),
+                            SizedBox(height: 20.0),
+                            Text('Due Date',
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white70)),
+                          ])),
+                      const SizedBox(height: 40.0),
+                      ElevatedButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const Students()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF1F7961),
+                              minimumSize: const Size(333.0, 150.0),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)))),
+                          child: Column(children: const [
+                            Text('Assignment Name',
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w600)),
+                            SizedBox(height: 20.0),
+                            Text('Due Date',
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white70)),
+                          ])),
+                      const SizedBox(height: 40.0),
+                      ElevatedButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const Students()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF1F7961),
+                              minimumSize: const Size(333.0, 150.0),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)))),
+                          child: Column(children: const [
+                            Text('Assignment Name',
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w600)),
+                            SizedBox(height: 20.0),
+                            Text('Due Date',
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white70)),
+                          ])),
+                      const SizedBox(height: 40.0),
+                      ElevatedButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const Students()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF1F7961),
+                              minimumSize: const Size(333.0, 150.0),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)))),
+                          child: Column(children: const [
+                            Text('Assignment Name',
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w600)),
+                            SizedBox(height: 20.0),
+                            Text('Due Date',
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white70)),
+                          ])),
+                    ]),
+              ),
             ),
           ),
         ));

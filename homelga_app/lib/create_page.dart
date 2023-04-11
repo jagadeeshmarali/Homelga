@@ -153,7 +153,8 @@ class CreatePage extends StatelessWidget {
                             await userRef.set({
                               "name": nameCtrl.text,
                               "type": "teacher",
-                              "students": {}
+                              "students": {},
+                              "assignments": {}
                             });
                             if (nameCtrl.text.contains(' ') &&
                                 emailCtrl.text.contains('@')) {

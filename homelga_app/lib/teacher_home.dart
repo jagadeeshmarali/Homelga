@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'students.dart';
 import 'teacher_assignments.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'main.dart';
-import 'dart:convert';
 
 class TeacherHome extends StatefulWidget {
   const TeacherHome({super.key});
@@ -16,15 +12,6 @@ class TeacherHome extends StatefulWidget {
 class _TeacherHomeState extends State<TeacherHome> {
   @override
   Widget build(BuildContext context) {
-    final teacherId = FirebaseAuth.instance.currentUser?.uid;
-    DatabaseReference teacherRef = userDatabase.ref('users/$teacherId/name');
-    Stream<DatabaseEvent> stream = teacherRef.onValue;
-    String teacherName = "Teacher";
-    stream.listen((DatabaseEvent event) {
-      teacherName = jsonEncode(event.snapshot.value);
-      print(teacherName);
-    });
-
     return Container(
         padding: const EdgeInsets.all(20.0),
         decoration: const BoxDecoration(
@@ -55,8 +42,8 @@ class _TeacherHomeState extends State<TeacherHome> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text('Hello $teacherName!',
-                    style: const TextStyle(
+                const Text('Hello Teacher!',
+                    style: TextStyle(
                         fontSize: 36.0,
                         fontFamily: 'Playfair',
                         fontWeight: FontWeight.w500,
