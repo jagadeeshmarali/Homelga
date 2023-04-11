@@ -43,12 +43,12 @@ class MyApp extends StatelessWidget {
       title: 'Homelga',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: darkGreen),
-      home: const AuthGate(),
+      home: const RootPage(),
     );
   }
 }
 
-class AuthGate extends StatelessWidget {
+/*class AuthGate extends StatelessWidget {
   const AuthGate({Key? key}) : super(key: key);
 
   @override
@@ -63,7 +63,7 @@ class AuthGate extends StatelessWidget {
       },
     );
   }
-}
+}*/
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
