@@ -8,6 +8,7 @@ import 'teacher_home.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
+List<String> studentNames = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

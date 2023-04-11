@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -112,7 +114,16 @@ class _StudentsState extends State<Students> {
                                   "studentName": nameCtrl.text,
                                   "studentEmail:": emailCtrl.text
                                 });
-
+                                studentNames.clear();
+                                DatabaseReference students =
+                                    teacherRef.child("students");
+                                DatabaseEvent event = await students.once();
+                                final studentList =
+                                    jsonEncode(event.snapshot.value);
+                                final parsedStudentList =
+                                    jsonDecode(studentList);
+                                parsedStudentList.forEach((k, v) =>
+                                    studentNames.add(v["studentName"]));
                                 if (nameCtrl.text.contains(' ') &&
                                     emailCtrl.text.contains('@')) {
                                   Navigator.of(context).pop();
@@ -256,66 +267,29 @@ class _StudentsState extends State<Students> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextButton(
-                              onPressed: () {
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (BuildContext context) {
-                                //       return CreatePage();
-                                //     },
-                                //   ),
-                                // );
-                              },
-                              child: const Text('Student 1',
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.black,
-                                      fontFamily: 'Playfair',
-                                      fontWeight: FontWeight.w500))),
+                          for (var studentName in studentNames)
+                            TextButton(
+                                onPressed: () {
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (BuildContext context) {
+                                  //       return CreatePage();
+                                  //     },
+                                  //   ),
+                                  // );
+                                },
+                                child: Text(studentName,
+                                    style: const TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.black,
+                                        fontFamily: 'Playfair',
+                                        fontWeight: FontWeight.w500))),
                           const SizedBox(height: 5.0),
                           const Divider(
                             color: Colors.grey,
                             thickness: 1.0,
                           ),
                           const SizedBox(height: 5.0),
-                          TextButton(
-                              onPressed: () {
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (BuildContext context) {
-                                //       return CreatePage();
-                                //     },
-                                //   ),
-                                // );
-                              },
-                              child: const Text('Student 1',
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.black,
-                                      fontFamily: 'Playfair',
-                                      fontWeight: FontWeight.w500))),
-                          const SizedBox(height: 5.0),
-                          const Divider(
-                            color: Colors.grey,
-                            thickness: 1.0,
-                          ),
-                          const SizedBox(height: 5.0),
-                          TextButton(
-                              onPressed: () {
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (BuildContext context) {
-                                //       return CreatePage();
-                                //     },
-                                //   ),
-                                // );
-                              },
-                              child: const Text('Student 1',
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.black,
-                                      fontFamily: 'Playfair',
-                                      fontWeight: FontWeight.w500))),
                         ])),
               ]),
             ],

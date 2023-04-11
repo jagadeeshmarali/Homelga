@@ -130,6 +130,17 @@ class LoginPage extends StatelessWidget {
                             String jsonType = jsonEncode(event.snapshot.value);
                             print(jsonType);
                             if (jsonType == '"teacher"') {
+                              DatabaseReference userRef =
+                                  userDatabase.ref('users/$id');
+                              DatabaseReference students =
+                                  userRef.child("students");
+
+                              DatabaseEvent event = await students.once();
+                              final studentList =
+                                  jsonEncode(event.snapshot.value);
+                              final parsedStudentList = jsonDecode(studentList);
+                              parsedStudentList.forEach(
+                                  (k, v) => studentNames.add(v["studentName"]));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
