@@ -129,6 +129,11 @@ class _StudentsState extends State<Students> {
                                 if (nameCtrl.text.contains(' ') &&
                                     emailCtrl.text.contains('@')) {
                                   Navigator.of(context).pop();
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              const Students()));
                                 }
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'email-already-in-use') {
