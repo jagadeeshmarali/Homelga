@@ -136,11 +136,15 @@ class LoginPage extends StatelessWidget {
                                   userRef.child("students");
 
                               DatabaseEvent event = await students.once();
+
                               final studentList =
                                   jsonEncode(event.snapshot.value);
                               final parsedStudentList = jsonDecode(studentList);
-                              parsedStudentList.forEach(
-                                  (k, v) => studentNames.add(v["studentName"]));
+                              if (parsedStudentList != null) {
+                                parsedStudentList.forEach((k, v) =>
+                                    studentNames.add(v["studentName"]));
+                              }
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

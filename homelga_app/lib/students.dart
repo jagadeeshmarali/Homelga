@@ -80,6 +80,8 @@ class _StudentsState extends State<Students> {
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
+                              emailCtrl.clear;
+                              nameCtrl.clear;
                             },
                             child: const Text('Cancel'),
                           ),
