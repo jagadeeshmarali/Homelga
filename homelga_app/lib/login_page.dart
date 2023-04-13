@@ -34,10 +34,7 @@ class LoginPage extends StatelessWidget {
               automaticallyImplyLeading: false,
               leading: IconButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const StartPage()));
+                    Navigator.pop(context);
                   },
                   icon: const Icon(Icons.arrow_back_ios),
                   color: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'settings.dart';
 
 class StudentHome extends StatefulWidget {
   const StudentHome({super.key});
@@ -41,7 +42,10 @@ class _StudentHomeState extends State<StudentHome> {
             automaticallyImplyLeading: false,
             leading: IconButton(
                 onPressed: () {
-                  // Navigator.of(context).pop();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Settings()));
                 },
                 icon: const Icon(Icons.settings),
                 color: Colors.white,
@@ -75,13 +79,22 @@ class _StudentHomeState extends State<StudentHome> {
                                       fontSize: 24.0,
                                       fontFamily: 'Playfair',
                                       fontWeight: FontWeight.w600)),
-                              const SizedBox(height: 20.0),
+                              const SizedBox(height: 15.0),
                               Text('Due Date: ${assignment.dueDate}',
                                   style: const TextStyle(
                                       fontSize: 15.0,
                                       fontFamily: 'Playfair',
                                       fontWeight: FontWeight.w500,
                                       color: Colors.white70)),
+                              const SizedBox(height: 15.0),
+                              Text(assignment.submitted
+                                      ? 'Submitted'
+                                      : 'Not Submitted' ,
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontFamily: 'Playfair',
+                                      fontWeight: FontWeight.w500,
+                                      color: assignment.submitted ? Colors.white70 : const Color(0xFFEBC32F))),
                             ])),
                       const SizedBox(height: 40.0),
                     ]),
