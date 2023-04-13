@@ -40,7 +40,7 @@ class Settings extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () async {},
                         child: const Text('Change Password',
                             style: TextStyle(
                                 fontSize: 18.0,
@@ -49,7 +49,13 @@ class Settings extends StatelessWidget {
                                 fontWeight: FontWeight.w500))),
                     const SizedBox(height: 40.0),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const StartPage()));
+                        },
                         child: const Text('Logout',
                             style: TextStyle(
                                 fontSize: 18.0,

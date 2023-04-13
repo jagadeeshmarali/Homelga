@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'students.dart';
 import 'teacher_assignments.dart';
+import 'settings.dart';
 
 class TeacherHome extends StatefulWidget {
   const TeacherHome({super.key});
@@ -31,7 +32,8 @@ class _TeacherHomeState extends State<TeacherHome> {
             automaticallyImplyLeading: false,
             leading: IconButton(
                 onPressed: () {
-                  // Navigator.of(context).pop();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Settings()));
                 },
                 icon: const Icon(Icons.settings),
                 color: Colors.white,
