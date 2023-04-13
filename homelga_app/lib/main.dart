@@ -10,6 +10,16 @@ import 'package:firebase_database/firebase_database.dart';
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
 List<String> studentNames = [];
 
+class Assignment {
+  String name;
+  String dueDate;
+  String text;
+
+  Assignment(this.name, this.dueDate, this.text);
+}
+
+List<Assignment> assignmentObjects = [];
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

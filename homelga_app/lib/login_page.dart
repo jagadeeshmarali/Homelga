@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'main.dart';
 import 'dart:convert';
+import 'student_home.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -145,13 +146,29 @@ class LoginPage extends StatelessWidget {
                                     studentNames.add(v["studentName"]));
                               }
 
+                              DatabaseReference assignments =
+                                  userRef.child("assignments");
+                              DatabaseEvent event2 = await assignments.once();
+                              final assignmentList =
+                                  jsonEncode(event2.snapshot.value);
+                              final parsedAssignmentList =
+                                  jsonDecode(assignmentList);
+                              if (parsedAssignmentList != null) {
+                                parsedAssignmentList.forEach((k, v) =>
+                                    assignmentObjects.add(Assignment(
+                                        v["name"], v["due-date"], v["text"])));
+                              }
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const TeacherHome()));
                             } else if (jsonType == '"student"') {
-                              //go to student home
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const StudentHome()));
                             } else {
                               print('No data available.');
                             }

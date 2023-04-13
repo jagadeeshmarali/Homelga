@@ -1,6 +1,9 @@
-import 'dart:math';
+import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
-
 import 'package:flutter/material.dart';
 
 class TeacherAssignments extends StatefulWidget {
@@ -11,6 +14,11 @@ class TeacherAssignments extends StatefulWidget {
 }
 
 class _TeacherAssignmentsState extends State<TeacherAssignments> {
+  final nameCtrl = TextEditingController();
+  final dueCtrl = TextEditingController();
+  final textCtrl = TextEditingController();
+  final teacherId = FirebaseAuth.instance.currentUser?.uid;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,20 +61,23 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                         title: const Text('Add Assignment'),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             TextField(
-                              decoration: InputDecoration(
+                              controller: nameCtrl,
+                              decoration: const InputDecoration(
                                 hintText: 'Assignment Name',
                               ),
                             ),
                             TextField(
-                              decoration: InputDecoration(
+                              controller: dueCtrl,
+                              decoration: const InputDecoration(
                                 hintText: 'Due Date',
                               ),
                             ),
                             //big text box for the text of the assignment
                             TextField(
-                              decoration: InputDecoration(
+                              controller: textCtrl,
+                              decoration: const InputDecoration(
                                 hintText: 'Assignment Text',
                               ),
                               keyboardType: TextInputType.multiline,
@@ -83,8 +94,58 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                             child: const Text('Cancel'),
                           ),
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              DatabaseReference teacherRef =
+                                  userDatabase.ref("users/$teacherId");
+                              await teacherRef
+                                  .child("assignments")
+                                  .child(nameCtrl.text)
+                                  .set({
+                                "name": nameCtrl.text,
+                                "due-date": dueCtrl.text,
+                                "text": textCtrl.text
+                              });
+                              DatabaseReference assignments =
+                                  teacherRef.child("assignments");
+                              DatabaseEvent event = await assignments.once();
+                              final assignmentList =
+                                  jsonEncode(event.snapshot.value);
+                              final parsedAssignmentList =
+                                  jsonDecode(assignmentList);
+                              parsedAssignmentList.forEach((k, v) =>
+                                  assignmentObjects.add(Assignment(
+                                      v["name"], v["due-date"], v["text"])));
+
+                              DatabaseReference students =
+                                  teacherRef.child("students");
+                              DatabaseEvent event2 = await students.once();
+                              final studentList =
+                                  jsonEncode(event2.snapshot.value);
+                              final parsedStudentList = jsonDecode(studentList);
+                              Future<void> setStudentAssignments(
+                                  String? studentId) async {
+                                DatabaseReference studentRef =
+                                    userDatabase.ref("users/$studentId");
+                                await studentRef
+                                    .child("assignments")
+                                    .child(nameCtrl.text)
+                                    .set({
+                                  "name": nameCtrl.text,
+                                  "due-date": dueCtrl.text,
+                                  "text": textCtrl.text,
+                                  "submitted": false,
+                                });
+                              }
+
+                              print(parsedStudentList);
+                              parsedStudentList
+                                  .forEach((k, v) => setStudentAssignments(k));
                               Navigator.of(context).pop();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          const TeacherAssignments()));
                             },
                             child: const Text('Add'),
                           ),
@@ -105,117 +166,35 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const Students()));
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF1F7961),
-                              minimumSize: const Size(333.0, 150.0),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)))),
-                          child: Column(children: const [
-                            Text('Assignment Name',
-                                style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w600)),
-                            SizedBox(height: 20.0),
-                            Text('Due Date',
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white70)),
-                          ])),
+                      for (var assignment in assignmentObjects)
+                        ElevatedButton(
+                            onPressed: () {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => const Students()));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF1F7961),
+                                minimumSize: const Size(333.0, 150.0),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0)))),
+                            child: Column(children: [
+                              Text(assignment.name,
+                                  style: const TextStyle(
+                                      fontSize: 24.0,
+                                      fontFamily: 'Playfair',
+                                      fontWeight: FontWeight.w600)),
+                              const SizedBox(height: 20.0),
+                              Text('Due Date: ${assignment.dueDate}',
+                                  style: const TextStyle(
+                                      fontSize: 15.0,
+                                      fontFamily: 'Playfair',
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white70)),
+                            ])),
                       const SizedBox(height: 40.0),
-                      ElevatedButton(
-                          onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const Students()));
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF1F7961),
-                              minimumSize: const Size(333.0, 150.0),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)))),
-                          child: Column(children: const [
-                            Text('Assignment Name',
-                                style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w600)),
-                            SizedBox(height: 20.0),
-                            Text('Due Date',
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white70)),
-                          ])),
-                      const SizedBox(height: 40.0),
-                      ElevatedButton(
-                          onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const Students()));
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF1F7961),
-                              minimumSize: const Size(333.0, 150.0),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)))),
-                          child: Column(children: const [
-                            Text('Assignment Name',
-                                style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w600)),
-                            SizedBox(height: 20.0),
-                            Text('Due Date',
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white70)),
-                          ])),
-                      const SizedBox(height: 40.0),
-                      ElevatedButton(
-                          onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const Students()));
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF1F7961),
-                              minimumSize: const Size(333.0, 150.0),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)))),
-                          child: Column(children: const [
-                            Text('Assignment Name',
-                                style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w600)),
-                            SizedBox(height: 20.0),
-                            Text('Due Date',
-                                style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: 'Playfair',
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white70)),
-                          ])),
                     ]),
               ),
             ),
