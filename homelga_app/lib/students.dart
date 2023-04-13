@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -124,6 +123,7 @@ class _StudentsState extends State<Students> {
                                     jsonEncode(event.snapshot.value);
                                 final parsedStudentList =
                                     jsonDecode(studentList);
+
                                 parsedStudentList.forEach((k, v) =>
                                     studentNames.add(v["studentName"]));
                                 if (nameCtrl.text.contains(' ') &&

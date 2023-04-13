@@ -18,7 +18,17 @@ class Assignment {
   Assignment(this.name, this.dueDate, this.text);
 }
 
+class StudentAssignment {
+  String name;
+  String dueDate;
+  String text;
+  bool submitted;
+
+  StudentAssignment(this.name, this.dueDate, this.text, this.submitted);
+}
+
 List<Assignment> assignmentObjects = [];
+List<StudentAssignment> studentAssignments = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

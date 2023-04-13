@@ -164,6 +164,23 @@ class LoginPage extends StatelessWidget {
                                       builder: (context) =>
                                           const TeacherHome()));
                             } else if (jsonType == '"student"') {
+                              DatabaseReference userRef =
+                                  userDatabase.ref('users/$id');
+                              DatabaseReference assignments =
+                                  userRef.child("assignments");
+                              DatabaseEvent event = await assignments.once();
+                              final assignmentList =
+                                  jsonEncode(event.snapshot.value);
+                              final parsedAssignmentList =
+                                  jsonDecode(assignmentList);
+                              if (parsedAssignmentList != null) {
+                                parsedAssignmentList.forEach((k, v) =>
+                                    studentAssignments.add(StudentAssignment(
+                                        v["name"],
+                                        v["due-date"],
+                                        v["text"],
+                                        v["submitted"])));
+                              }
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

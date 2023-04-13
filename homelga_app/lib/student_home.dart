@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
-import 'teacher_assignments.dart';
 
 class StudentHome extends StatefulWidget {
   const StudentHome({super.key});
@@ -59,7 +55,7 @@ class _StudentHomeState extends State<StudentHome> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      for (var assignment in assignmentObjects)
+                      for (var assignment in studentAssignments)
                         ElevatedButton(
                             onPressed: () {
                               // Navigator.push(
