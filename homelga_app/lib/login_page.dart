@@ -10,7 +10,7 @@ import 'student_home.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
 
-  final emailCtrl = TextEditingController();
+  final usernameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
 
   @override
@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Email',
+                            'Username',
                             style: TextStyle(
                                 fontSize: 24.0,
                                 fontFamily: 'Playfair',
@@ -71,7 +71,7 @@ class LoginPage extends StatelessWidget {
                           SizedBox(
                             width: 333.0,
                             child: TextField(
-                              controller: emailCtrl,
+                              controller: usernameCtrl,
                               decoration: const InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -117,7 +117,7 @@ class LoginPage extends StatelessWidget {
                           try {
                             final userCredential = await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
-                                    email: emailCtrl.text,
+                                    email: '${usernameCtrl.text}@homelga.com',
                                     password: passwordCtrl.text);
                             final user = userCredential.user;
                             final id = user?.uid;
@@ -299,15 +299,6 @@ class LoginPage extends StatelessWidget {
                                 fontFamily: 'Playfair',
                                 fontWeight: FontWeight.w500))),
                     const SizedBox(height: 20.0),
-                    TextButton(
-                        onPressed: () {},
-                        child: const Text('Forgot username / password?',
-                            style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.white,
-                                fontFamily: 'Playfair',
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline)))
                   ],
                 ),
               ],

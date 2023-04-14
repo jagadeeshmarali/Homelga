@@ -13,7 +13,7 @@ class Students extends StatefulWidget {
 }
 
 class _StudentsState extends State<Students> {
-  final emailCtrl = TextEditingController();
+  final usernameCtrl = TextEditingController();
   final nameCtrl = TextEditingController();
   final teacherId = FirebaseAuth.instance.currentUser?.uid;
 
@@ -68,9 +68,9 @@ class _StudentsState extends State<Students> {
                               ),
                             ),
                             TextField(
-                              controller: emailCtrl,
+                              controller: usernameCtrl,
                               decoration: const InputDecoration(
-                                hintText: 'Student Email',
+                                hintText: 'Student Username',
                               ),
                             ),
                           ],
@@ -79,7 +79,7 @@ class _StudentsState extends State<Students> {
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
-                              emailCtrl.clear;
+                              usernameCtrl.clear;
                               nameCtrl.clear;
                             },
                             child: const Text('Cancel'),
@@ -92,11 +92,12 @@ class _StudentsState extends State<Students> {
                               var errorMessage = '';
 
                               try {
-                                UserCredential userCredential =
-                                    await FirebaseAuth.instanceFor(app: app)
-                                        .createUserWithEmailAndPassword(
-                                            email: emailCtrl.text,
-                                            password: "homelga");
+                                UserCredential userCredential = await FirebaseAuth
+                                        .instanceFor(app: app)
+                                    .createUserWithEmailAndPassword(
+                                        email:
+                                            '${usernameCtrl.text}@homelga.com',
+                                        password: "homelga");
                                 final user = userCredential.user;
                                 final studentId = user?.uid;
                                 DatabaseReference userRef =
@@ -104,6 +105,7 @@ class _StudentsState extends State<Students> {
                                 await userRef.set({
                                   "name": nameCtrl.text,
                                   "type": "student",
+                                  "password": "homelga",
                                   "students": {}
                                 });
                                 DatabaseReference teacherRef =
@@ -113,7 +115,7 @@ class _StudentsState extends State<Students> {
                                     .child("$studentId")
                                     .set({
                                   "studentName": nameCtrl.text,
-                                  "studentEmail:": emailCtrl.text
+                                  "studentUsername:": usernameCtrl.text
                                 });
                                 studentNames.clear();
                                 DatabaseReference students =
@@ -126,8 +128,7 @@ class _StudentsState extends State<Students> {
 
                                 parsedStudentList.forEach((k, v) =>
                                     studentNames.add(v["studentName"]));
-                                if (nameCtrl.text.contains(' ') &&
-                                    emailCtrl.text.contains('@')) {
+                                if (nameCtrl.text.contains(' ')) {
                                   Navigator.of(context).pop();
                                   Navigator.pushReplacement(
                                       context,
@@ -138,16 +139,13 @@ class _StudentsState extends State<Students> {
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'email-already-in-use') {
                                   errorMessage =
-                                      'The account already exists for that email.';
+                                      'The account already exists for that username.';
                                 } else if (!nameCtrl.text.contains(' ')) {
                                   errorMessage =
                                       'Please enter the student\'s full name';
-                                } else if (!emailCtrl.text.contains('@')) {
-                                  errorMessage =
-                                      'Please provide a valid email address.';
                                 } else {
                                   errorMessage =
-                                      'There was an error adding a student. You must enter the student\'s full name and you must provide a valid email address. Please try again!';
+                                      'There was an error adding a student. You must enter the student\'s full name. Please try again!';
                                 }
                                 await app.delete();
                                 ScaffoldMessenger.of(context)
@@ -245,7 +243,7 @@ class _StudentsState extends State<Students> {
                                 //errorMessage = String(e);
                                 print(e);
                               }
-                              emailCtrl.clear;
+                              usernameCtrl.clear;
                               nameCtrl.clear;
                             },
                             child: const Text('Add'),

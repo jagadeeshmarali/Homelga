@@ -9,7 +9,7 @@ import 'main.dart';
 class CreatePage extends StatelessWidget {
   CreatePage({Key? key}) : super(key: key);
 
-  final emailCtrl = TextEditingController();
+  final usernameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final nameCtrl = TextEditingController();
 
@@ -85,7 +85,7 @@ class CreatePage extends StatelessWidget {
                           ),
                           const SizedBox(height: 10.0),
                           const Text(
-                            'Email',
+                            'Username',
                             style: TextStyle(
                                 fontSize: 24.0,
                                 fontFamily: 'Playfair',
@@ -97,7 +97,7 @@ class CreatePage extends StatelessWidget {
                           SizedBox(
                             width: 333.0,
                             child: TextField(
-                              controller: emailCtrl,
+                              controller: usernameCtrl,
                               decoration: const InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -146,7 +146,7 @@ class CreatePage extends StatelessWidget {
                           try {
                             final userCredential = await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
-                                    email: emailCtrl.text,
+                                    email: '${usernameCtrl.text}@homelga.com',
                                     password: passwordCtrl.text);
                             final user = userCredential.user;
                             final id = user?.uid;
@@ -158,8 +158,7 @@ class CreatePage extends StatelessWidget {
                               "students": {},
                               "assignments": {}
                             });
-                            if (nameCtrl.text.contains(' ') &&
-                                emailCtrl.text.contains('@')) {
+                            if (nameCtrl.text.contains(' ')) {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -171,15 +170,12 @@ class CreatePage extends StatelessWidget {
                                   'The password provided is too weak.';
                             } else if (e.code == 'email-already-in-use') {
                               errorMessage =
-                                  'The account already exists for that email.';
+                                  'The account already exists for that username.';
                             } else if (!nameCtrl.text.contains(' ')) {
                               errorMessage = 'Please enter your full name';
-                            } else if (!emailCtrl.text.contains('@')) {
-                              errorMessage =
-                                  'Please provide a valid email address.';
                             } else {
                               errorMessage =
-                                  'There was an error creating your account. You must enter your full name, you must provide a valid email address, and your password must contain at least 6 characters. Please try again!';
+                                  'There was an error creating your account. You must enter your full name and your password must contain at least 6 characters. Please try again!';
                             }
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: Colors.transparent,
