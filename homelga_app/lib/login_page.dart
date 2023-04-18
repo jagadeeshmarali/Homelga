@@ -113,7 +113,9 @@ class LoginPage extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () async {
                           var errorMessage = '';
-
+                          studentNames = [];
+                          assignmentObjects = [];
+                          studentAssignments = [];
                           try {
                             final userCredential = await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
