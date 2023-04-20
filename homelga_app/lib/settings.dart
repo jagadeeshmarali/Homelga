@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'main.dart';
 import 'dart:convert';
 import 'student_home.dart';
+import 'change_password.dart';
 
 class Settings extends StatelessWidget {
   Settings({Key? key}) : super(key: key);
@@ -40,7 +41,12 @@ class Settings extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                        onPressed: () async {},
+                        onPressed: () async {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChangePassword()));
+                        },
                         child: const Text('Change Password',
                             style: TextStyle(
                                 fontSize: 18.0,

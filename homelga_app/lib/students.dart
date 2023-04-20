@@ -182,28 +182,32 @@ class _StudentsState extends State<Students> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           for (var studentName in studentNames)
-                            TextButton(
-                                onPressed: () {
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (BuildContext context) {
-                                  //       return CreatePage();
-                                  //     },
-                                  //   ),
-                                  // );
-                                },
-                                child: Text(studentName,
-                                    style: const TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.black,
-                                        fontFamily: 'Playfair',
-                                        fontWeight: FontWeight.w500))),
-                          const SizedBox(height: 5.0),
-                          const Divider(
-                            color: Colors.grey,
-                            thickness: 1.0,
-                          ),
-                          const SizedBox(height: 5.0),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        // Navigator.of(context).push(
+                                        //   MaterialPageRoute(
+                                        //     builder: (BuildContext context) {
+                                        //       return CreatePage();
+                                        //     },
+                                        //   ),
+                                        // );
+                                      },
+                                      child: Text(studentName,
+                                          style: const TextStyle(
+                                              fontSize: 14.0,
+                                              color: Colors.black,
+                                              fontFamily: 'Playfair',
+                                              fontWeight: FontWeight.w500))),
+                                  const SizedBox(height: 2.5),
+                                  const Divider(
+                                    color: Colors.grey,
+                                    thickness: 1.0,
+                                  ),
+                                  const SizedBox(height: 2.5),
+                                ])
                         ])),
               ]),
             ],

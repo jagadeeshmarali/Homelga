@@ -190,7 +190,7 @@ class LoginPage extends StatelessWidget {
                             }
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'user-not-found') {
-                              errorMessage = 'No user found for that email.';
+                              errorMessage = 'No user found with that username.';
                             } else if (e.code == 'wrong-password') {
                               errorMessage =
                                   'Wrong password provided for that user.';

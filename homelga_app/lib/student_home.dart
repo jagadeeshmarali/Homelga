@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'settings.dart';
+import 'record.dart';
 
 class StudentHome extends StatefulWidget {
   const StudentHome({super.key});
@@ -42,10 +43,8 @@ class _StudentHomeState extends State<StudentHome> {
             automaticallyImplyLeading: false,
             leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Settings()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Settings()));
                 },
                 icon: const Icon(Icons.settings),
                 color: Colors.white,
@@ -60,43 +59,51 @@ class _StudentHomeState extends State<StudentHome> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       for (var assignment in studentAssignments)
-                        ElevatedButton(
-                            onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => const Students()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF1F7961),
-                                minimumSize: const Size(333.0, 150.0),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0)))),
-                            child: Column(children: [
-                              Text(assignment.name,
-                                  style: const TextStyle(
-                                      fontSize: 24.0,
-                                      fontFamily: 'Playfair',
-                                      fontWeight: FontWeight.w600)),
-                              const SizedBox(height: 15.0),
-                              Text('Due Date: ${assignment.dueDate}',
-                                  style: const TextStyle(
-                                      fontSize: 15.0,
-                                      fontFamily: 'Playfair',
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white70)),
-                              const SizedBox(height: 15.0),
-                              Text(assignment.submitted
-                                      ? 'Submitted'
-                                      : 'Not Submitted' ,
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontFamily: 'Playfair',
-                                      fontWeight: FontWeight.w500,
-                                      color: assignment.submitted ? Colors.white70 : const Color(0xFFEBC32F))),
-                            ])),
-                      const SizedBox(height: 40.0),
+                        Column(
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Record()));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF1F7961),
+                                    minimumSize: const Size(333.0, 150.0),
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0)))),
+                                child: Column(children: [
+                                  Text(assignment.name,
+                                      style: const TextStyle(
+                                          fontSize: 24.0,
+                                          fontFamily: 'Playfair',
+                                          fontWeight: FontWeight.w600)),
+                                  const SizedBox(height: 15.0),
+                                  Text('Due Date: ${assignment.dueDate}',
+                                      style: const TextStyle(
+                                          fontSize: 15.0,
+                                          fontFamily: 'Playfair',
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white70)),
+                                  const SizedBox(height: 15.0),
+                                  Text(
+                                      assignment.submitted
+                                          ? 'Submitted'
+                                          : 'Not Submitted',
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontFamily: 'Playfair',
+                                          fontWeight: FontWeight.w500,
+                                          color: assignment.submitted
+                                              ? Colors.white70
+                                              : const Color(0xFFEBC32F))),
+                                ])),
+                            const SizedBox(height: 30.0),
+                          ],
+                        )
                     ]),
               ),
             ),

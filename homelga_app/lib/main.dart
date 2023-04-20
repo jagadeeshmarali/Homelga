@@ -34,7 +34,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    name: 'homelga',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
