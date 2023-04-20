@@ -74,14 +74,16 @@ class Record extends StatelessWidget {
                                 Radius.circular(10.0),
                               ),
                             ),
-                            child: const Text(
-                              'The quick brown fox jumps over the lazy dog.',
-                              style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontFamily: 'Playfair',
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                              textAlign: TextAlign.left,
+                            child: const SingleChildScrollView(
+                              child: Text(
+                                'The quick brown fox jumps over the lazy dog.',
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontFamily: 'Playfair',
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                                textAlign: TextAlign.left,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 30.0),
