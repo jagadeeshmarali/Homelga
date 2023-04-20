@@ -184,9 +184,10 @@ class _StudentsState extends State<Students> {
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                    child: SingleChildScrollView(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                           for (var student in studentObjects)
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,7 +215,7 @@ class _StudentsState extends State<Students> {
                                   ),
                                   const SizedBox(height: 2.5),
                                 ])
-                        ])),
+                        ]))),
               ]),
             ],
           ),

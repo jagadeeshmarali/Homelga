@@ -6,13 +6,19 @@ import 'login_page.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
 
-class Record extends StatelessWidget {
-  Record({Key? key}) : super(key: key);
+class Record extends StatefulWidget {
+  Record({super.key});
 
   final usernameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final nameCtrl = TextEditingController();
 
+  @override
+  State<Record> createState() => _RecordState();
+}
+
+class _RecordState extends State<Record> {
+  bool isRecording = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,8 +64,7 @@ class Record extends StatelessWidget {
                       softWrap: true,
                       maxLines: 4,
                     ),
-                    const SizedBox(height: 30.0),
-                    // Image.asset('images/tree.png'),
+                    const SizedBox(height: 20.0),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -78,7 +83,7 @@ class Record extends StatelessWidget {
                               child: Text(
                                 studentAssignmentSelected.text,
                                 style: const TextStyle(
-                                    fontSize: 24.0,
+                                    fontSize: 20.0,
                                     fontFamily: 'Playfair',
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black),
@@ -89,9 +94,18 @@ class Record extends StatelessWidget {
                           const SizedBox(height: 30.0),
                         ]),
                     InkWell(
-                      onTap: () async {},
+                      onTap: () async {
+                        setState(() {
+                          isRecording = !isRecording;
+                        });
+                        // if (isRecording) {
+                        //   await startRecording();
+                        // } else {
+                        //   await stopRecording();
+                        // }
+                      },
                       child: Ink.image(
-                        image: const AssetImage('images/record.png'),
+                        image: isRecording ? const AssetImage('images/stop.png') : const AssetImage('images/record.png'),
                         fit: BoxFit.cover,
                         width: 100,
                         height: 100,
