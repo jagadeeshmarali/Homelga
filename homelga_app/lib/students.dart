@@ -105,6 +105,7 @@ class _StudentsState extends State<Students> {
                                 await userRef.set({
                                   "name": nameCtrl.text,
                                   "type": "student",
+                                  "username": usernameCtrl.text,
                                   "password": "homelga",
                                   "students": {}
                                 });
@@ -115,9 +116,10 @@ class _StudentsState extends State<Students> {
                                     .child("$studentId")
                                     .set({
                                   "studentName": nameCtrl.text,
-                                  "studentUsername:": usernameCtrl.text
+                                  "studentUsername": usernameCtrl.text,
+                                  "studentPassword": "homelga"
                                 });
-                                studentNames.clear();
+                                studentObjects.clear();
                                 DatabaseReference students =
                                     teacherRef.child("students");
                                 DatabaseEvent event = await students.once();
@@ -125,9 +127,13 @@ class _StudentsState extends State<Students> {
                                     jsonEncode(event.snapshot.value);
                                 final parsedStudentList =
                                     jsonDecode(studentList);
-
+                                print(parsedStudentList);
                                 parsedStudentList.forEach((k, v) =>
-                                    studentNames.add(v["studentName"]));
+                                    studentObjects.add(Student(
+                                        v["studentName"],
+                                        v["studentUsername"],
+                                        v["studentPassword"])));
+                                print(studentObjects);
                                 if (nameCtrl.text.contains(' ')) {
                                   Navigator.of(context).pop();
                                   Navigator.pushReplacement(
@@ -147,11 +153,11 @@ class _StudentsState extends State<Students> {
                                   errorMessage =
                                       'There was an error adding a student. You must enter the student\'s full name. Please try again!';
                                 }
-                                await app.delete();
                               } catch (e) {
                                 //errorMessage = String(e);
                                 print(e);
                               }
+                              await app.delete();
                               usernameCtrl.clear;
                               nameCtrl.clear;
                             },
@@ -181,7 +187,7 @@ class _StudentsState extends State<Students> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          for (var studentName in studentNames)
+                          for (var student in studentObjects)
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -195,7 +201,7 @@ class _StudentsState extends State<Students> {
                                         //   ),
                                         // );
                                       },
-                                      child: Text(studentName,
+                                      child: Text(student.name,
                                           style: const TextStyle(
                                               fontSize: 14.0,
                                               color: Colors.black,

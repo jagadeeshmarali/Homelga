@@ -8,7 +8,16 @@ import 'teacher_home.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
-List<String> studentNames = [];
+
+class Student {
+  String name;
+  String username;
+  String password;
+
+  Student(this.name, this.username, this.password);
+}
+
+List<Student> studentObjects = [];
 
 class Assignment {
   String name;
@@ -27,8 +36,10 @@ class StudentAssignment {
   StudentAssignment(this.name, this.dueDate, this.text, this.submitted);
 }
 
+String accountType = "teacher";
 List<Assignment> assignmentObjects = [];
 List<StudentAssignment> studentAssignments = [];
+StudentAssignment studentAssignmentSelected = {} as StudentAssignment;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

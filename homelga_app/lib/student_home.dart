@@ -63,11 +63,11 @@ class _StudentHomeState extends State<StudentHome> {
                           children: [
                             ElevatedButton(
                                 onPressed: () {
+                                  studentAssignmentSelected = assignment;
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              Record()));
+                                          builder: (context) => Record()));
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color(0xFF1F7961),

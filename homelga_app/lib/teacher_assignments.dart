@@ -105,6 +105,7 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                                 "due-date": dueCtrl.text,
                                 "text": textCtrl.text
                               });
+                              assignmentObjects = [];
                               DatabaseReference assignments =
                                   teacherRef.child("assignments");
                               DatabaseEvent event = await assignments.once();
@@ -138,8 +139,10 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                               }
 
                               print(parsedStudentList);
-                              parsedStudentList
-                                  .forEach((k, v) => setStudentAssignments(k));
+                              if (parsedStudentList != null) {
+                                parsedStudentList.forEach(
+                                    (k, v) => setStudentAssignments(k));
+                              }
                               Navigator.of(context).pop();
                               Navigator.pushReplacement(
                                   context,

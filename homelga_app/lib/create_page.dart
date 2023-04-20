@@ -142,6 +142,7 @@ class CreatePage extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () async {
                           var errorMessage = '';
+                          accountType = "teacher";
 
                           try {
                             final userCredential = await FirebaseAuth.instance
@@ -154,7 +155,9 @@ class CreatePage extends StatelessWidget {
                                 userDatabase.ref("users/$id");
                             await userRef.set({
                               "name": nameCtrl.text,
+                              "username": usernameCtrl.text,
                               "type": "teacher",
+                              "password": passwordCtrl.text,
                               "students": {},
                               "assignments": {}
                             });

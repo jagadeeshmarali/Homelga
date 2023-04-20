@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () async {
                           var errorMessage = '';
-                          studentNames = [];
+                          studentObjects = [];
                           assignmentObjects = [];
                           studentAssignments = [];
                           try {
@@ -130,6 +130,7 @@ class LoginPage extends StatelessWidget {
                             String jsonType = jsonEncode(event.snapshot.value);
                             print(jsonType);
                             if (jsonType == '"teacher"') {
+                              accountType = "teacher";
                               DatabaseReference userRef =
                                   userDatabase.ref('users/$id');
                               DatabaseReference students =
@@ -140,10 +141,15 @@ class LoginPage extends StatelessWidget {
                               final studentList =
                                   jsonEncode(event.snapshot.value);
                               final parsedStudentList = jsonDecode(studentList);
+                              print(parsedStudentList);
                               if (parsedStudentList != null) {
                                 parsedStudentList.forEach((k, v) =>
-                                    studentNames.add(v["studentName"]));
+                                    studentObjects.add(Student(
+                                        v["studentName"],
+                                        v["studentUsername"],
+                                        v["studentPassword"])));
                               }
+                              print(studentObjects);
 
                               DatabaseReference assignments =
                                   userRef.child("assignments");
@@ -163,6 +169,7 @@ class LoginPage extends StatelessWidget {
                                       builder: (context) =>
                                           const TeacherHome()));
                             } else if (jsonType == '"student"') {
+                              accountType = "student";
                               DatabaseReference userRef =
                                   userDatabase.ref('users/$id');
                               DatabaseReference assignments =
@@ -190,7 +197,8 @@ class LoginPage extends StatelessWidget {
                             }
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'user-not-found') {
-                              errorMessage = 'No user found with that username.';
+                              errorMessage =
+                                  'No user found with that username.';
                             } else if (e.code == 'wrong-password') {
                               errorMessage =
                                   'Wrong password provided for that user.';
