@@ -107,6 +107,7 @@ class _StudentsState extends State<Students> {
                                   "type": "student",
                                   "username": usernameCtrl.text,
                                   "password": "homelga",
+                                  "teacher": teacherId,
                                   "students": {}
                                 });
                                 DatabaseReference teacherRef =

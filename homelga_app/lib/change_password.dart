@@ -150,12 +150,12 @@ class ChangePassword extends StatelessWidget {
                           DatabaseReference userRef =
                               userDatabase.ref('users/$id');
                           DatabaseEvent event = await userRef.once();
-                          final teacher = jsonEncode(event.snapshot.value);
-                          print(teacher);
-                          final parsedTeacher = jsonDecode(teacher);
-                          final username = parsedTeacher["username"];
+                          final userAccount = jsonEncode(event.snapshot.value);
+                          print(userAccount);
+                          final parsedUser = jsonDecode(userAccount);
+                          final username = parsedUser["username"];
                           print(username);
-                          final password = parsedTeacher["password"];
+                          final password = parsedUser["password"];
                           final cred = EmailAuthProvider.credential(
                               email: '$username@homelga.com',
                               password: currentPasswordCtrl.text);
@@ -171,6 +171,22 @@ class ChangePassword extends StatelessWidget {
                                 await userRef.update({
                                   "password": newPasswordCtrl.text,
                                 });
+                                if (accountType == "student") {
+                                  DatabaseEvent event = await userRef.once();
+                                  final student =
+                                      jsonEncode(event.snapshot.value);
+                                  final parsedStudent = jsonDecode(student);
+                                  final teacherId = parsedStudent["teacher"];
+                                  print(teacherId);
+                                  DatabaseReference teacherRef =
+                                      userDatabase.ref('users/$teacherId');
+                                  await teacherRef
+                                      .child("students")
+                                      .child("$id")
+                                      .update({
+                                    "studentPassword": newPasswordCtrl.text
+                                  });
+                                }
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
