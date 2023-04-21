@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'student_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'login_page.dart';
@@ -53,22 +53,44 @@ class _UploadState extends State<Upload> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Record Yourself\nReading The Following\nText',
-                      style: TextStyle(
-                          fontSize: 32.0,
-                          fontFamily: 'Playfair',
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
-                      textAlign: TextAlign.center,
-                      softWrap: true,
-                      maxLines: 4,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            "Retake",
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: 'Playfair',
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const StudentHome()));
+                          },
+                          child: const Text(
+                            "Upload",
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: 'Playfair',
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 20.0),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 10.0),
                           Container(
                             width: 333.0,
                             height: 300.0,

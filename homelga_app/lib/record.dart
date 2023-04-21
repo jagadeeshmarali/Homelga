@@ -99,19 +99,20 @@ class _RecordState extends State<Record> {
                         setState(() {
                           isRecording = isRecording == 0 ? 1 : 2;
                         });
-                        if(isRecording == 2) {
+                        if (isRecording == 2) {
                           Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Upload()));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Upload()));
                           setState(() {
-                          isRecording = 0;
-                        });
+                            isRecording = 0;
+                          });
                         }
                       },
                       child: Ink.image(
-                        image: isRecording == 1 ? const AssetImage('images/stop.png') : const AssetImage('images/record.png'),
+                        image: isRecording == 1
+                            ? const AssetImage('images/stop.png')
+                            : const AssetImage('images/record.png'),
                         fit: BoxFit.cover,
                         width: 100,
                         height: 100,
