@@ -5,20 +5,19 @@ import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
-import 'upload.dart';
 
-class Record extends StatefulWidget {
-  Record({super.key});
+class Upload extends StatefulWidget {
+  Upload({super.key});
 
   final usernameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final nameCtrl = TextEditingController();
 
   @override
-  State<Record> createState() => _RecordState();
+  State<Upload> createState() => _UploadState();
 }
 
-class _RecordState extends State<Record> {
+class _UploadState extends State<Upload> {
   int isRecording = 0;
   @override
   Widget build(BuildContext context) {
@@ -94,29 +93,26 @@ class _RecordState extends State<Record> {
                           ),
                           const SizedBox(height: 30.0),
                         ]),
-                    InkWell(
-                      onTap: () async {
-                        setState(() {
-                          isRecording = isRecording == 0 ? 1 : 2;
-                        });
-                        if(isRecording == 2) {
-                          Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Upload()));
-                          setState(() {
-                          isRecording = 0;
-                        });
-                        }
-                      },
-                      child: Ink.image(
-                        image: isRecording == 1 ? const AssetImage('images/stop.png') : const AssetImage('images/record.png'),
-                        fit: BoxFit.cover,
-                        width: 100,
-                        height: 100,
-                      ),
-                    )
+                    // InkWell(
+                    //   onTap: () async {
+                    //     setState(() {
+                    //       isRecording = isRecording == 0 ? 1 : 2;
+                    //     });
+                    //     if(isRecording == 2) {
+                    //       // Navigator.push(
+                    //       //         context,
+                    //       //         MaterialPageRoute(
+                    //       //             builder: (context) =>
+                    //       //                 const TeacherHome()));
+                    //     }
+                    //   },
+                    //   child: Ink.image(
+                    //     image: isRecording == 1 ? const AssetImage('images/stop.png') : const AssetImage('images/record.png'),
+                    //     fit: BoxFit.cover,
+                    //     width: 100,
+                    //     height: 100,
+                    //   ),
+                    // )
                   ],
                 ),
               ],
