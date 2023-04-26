@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
 import 'student_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +22,7 @@ class Upload extends StatefulWidget {
 
 class _UploadState extends State<Upload> {
   int isRecording = 0;
+  String assignmentName = studentAssignmentSelected.name;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,39 +57,67 @@ class _UploadState extends State<Upload> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text(
-                            "Retake",
-                            style: TextStyle(
-                                fontSize: 20.0,
-                                fontFamily: 'Playfair',
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const StudentHome()));
-                          },
-                          child: const Text(
-                            "Upload",
-                            style: TextStyle(
-                                fontSize: 20.0,
-                                fontFamily: 'Playfair',
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ],
+                    ElevatedButton(
+                      onPressed: () {
+                        storedAudio = File('');
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        "Retake",
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Playfair',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        // final studentId =
+                        //     FirebaseAuth.instance.currentUser?.uid;
+                        // DatabaseReference userRef =
+                        //     userDatabase.ref('users/$studentId');
+                        // DatabaseEvent event = await userRef.once();
+                        // final student = jsonEncode(event.snapshot.value);
+                        // final parsedStudent = jsonDecode(student);
+                        // final teacherId = parsedStudent["teacher"];
+                        // print(teacherId);
+                        // final teacherStorageRef = storageRef.child(teacherId);
+                        // final studentStorageRef =
+                        //     teacherStorageRef.child(studentId!);
+                        // final assignmentStorageRef = studentStorageRef
+                        //     .child(studentAssignmentSelected.name);
+                        // // await userRef
+                        // //     .child("assignments")
+                        // //     .child(assignmentName)
+                        // //     .update({"submitted": true});
+                        // Directory appDocDir =
+                        //     await getApplicationDocumentsDirectory();
+                        // String filePath = '${appDocDir.absolute}/$storedAudio';
+                        // File file = File(filePath);
+                        // try {
+                        //   await assignmentStorageRef.putFile(file);
+                        // } on FirebaseException catch (e) {
+                        //   if (e.code == 'storage/unknown') {
+                        //     //
+                        //   } else if (e.code == 'storage/object-not-found') {
+                        //     //
+                        //   }
+                        // }
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const StudentHome()));
+                      },
+                      child: const Text(
+                        "Upload",
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Playfair',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
                     ),
                     const SizedBox(height: 20.0),
                     Column(

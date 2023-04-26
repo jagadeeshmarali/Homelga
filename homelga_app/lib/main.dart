@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:homelga_app/start_page.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'teacher_home.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
+var storedAudio = File('');
+final storageRef = FirebaseStorage.instance.ref();
 
 class Student {
   String name;

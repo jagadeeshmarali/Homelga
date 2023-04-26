@@ -28,7 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter_sound: ^8.1.9
+  flutter_sound: ^9.2.13
   assets_audio_player: ^3.0.3+3
   flutter:
     sdk: flutter
@@ -42,6 +42,9 @@ dependencies:
   flutterfire_ui: ^0.4.3+20
   firebase_database: ^10.1.0
   uuid: ^3.0.7
+  permission_handler: ^10.2.0
+  firebase_storage: ^11.1.1
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:
