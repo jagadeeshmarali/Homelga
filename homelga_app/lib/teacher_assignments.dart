@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
+import 'submission_list.dart';
 
 class TeacherAssignments extends StatefulWidget {
   const TeacherAssignments({super.key});
@@ -173,10 +174,10 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                         Column(children: [
                           ElevatedButton(
                               onPressed: () {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => const Students()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const SubmissionList()));
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF1F7961),
