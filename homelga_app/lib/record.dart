@@ -58,8 +58,8 @@ class _RecordState extends State<Record> {
   Future stop() async {
     if (!isRecorderReady) return;
     final path = await recorder.stopRecorder();
-    final audioFile = File(path!);
-    storedAudio = audioFile;
+    audioUrl = path!;
+    final audioFile = File(path);
 
     print('Recorded audio: $audioFile');
   }

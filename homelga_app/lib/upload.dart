@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'student_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,58 @@ class Upload extends StatefulWidget {
 
 class _UploadState extends State<Upload> {
   bool isPlaying = false;
+  final audioPlayer = AudioPlayer();
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
   String assignmentName = studentAssignmentSelected.name;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setAudio();
+
+    audioPlayer.onPlayerStateChanged.listen((state) {
+      setState(() {
+        isPlaying = state == PlayerState.PLAYING;
+      });
+    });
+    audioPlayer.onDurationChanged.listen((newDuration) {
+      setState(() {
+        duration = newDuration;
+      });
+    });
+    audioPlayer.onAudioPositionChanged.listen((newPosition) {
+      setState(() {
+        position = newPosition;
+      });
+    });
+  }
+
+  Future setAudio() async {
+    audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+    audioPlayer.setUrl(audioUrl);
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
+  }
+
+  String formatTime(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(duration.inHours);
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return [
+      if (duration.inSeconds > 0) hours,
+      minutes,
+      seconds,
+    ].join(':');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,7 +120,7 @@ class _UploadState extends State<Upload> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        storedAudio = File('');
+                        audioUrl = "";
                         Navigator.of(context).pop();
                       },
                       child: const Text(
@@ -159,15 +210,42 @@ class _UploadState extends State<Upload> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 30.0),
+                      const SizedBox(height: 20.0),
+                      Slider(
+                        min: 0,
+                        max: 20,
+                        value: position.inSeconds.toDouble(),
+                        onChanged: (value) async {
+                          final position = Duration(seconds: value.toInt());
+                          await audioPlayer.seek(position);
+
+                          await audioPlayer.resume();
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(formatTime(position)),
+                            Text(formatTime(duration - position)),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
                               onTap: () async {
-                                setState(() {
-                                  isPlaying = !isPlaying;
-                                });
+                                // setState(() {
+                                //   isPlaying = !isPlaying;
+                                // });
+                                if (isPlaying) {
+                                  await audioPlayer.pause();
+                                } else {
+                                  await audioPlayer.resume();
+                                }
                               },
                               child: Ink.image(
                                 image: isPlaying

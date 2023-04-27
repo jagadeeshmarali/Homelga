@@ -10,8 +10,8 @@ import 'teacher_home.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 FirebaseDatabase userDatabase = FirebaseDatabase.instance;
-var storedAudio = File('');
 final storageRef = FirebaseStorage.instance.ref();
+String audioUrl = "";
 
 class Student {
   String name;
