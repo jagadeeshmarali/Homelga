@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'student_details.dart';
 
 class Students extends StatefulWidget {
   const Students({super.key});
@@ -195,13 +196,13 @@ class _StudentsState extends State<Students> {
                                 children: [
                                   TextButton(
                                       onPressed: () {
-                                        // Navigator.of(context).push(
-                                        //   MaterialPageRoute(
-                                        //     builder: (BuildContext context) {
-                                        //       return CreatePage();
-                                        //     },
-                                        //   ),
-                                        // );
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) {
+                                              return StudentDetails();
+                                            },
+                                          ),
+                                        );
                                       },
                                       child: Text(student.name,
                                           style: const TextStyle(
