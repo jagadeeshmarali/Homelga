@@ -55,7 +55,7 @@ class _UploadState extends State<Upload> {
   }
 
   Future setAudio() async {
-    //audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+    audioPlayer.setReleaseMode(ReleaseMode.LOOP);
     audioPlayer.setUrl(audioUrl);
   }
 
@@ -167,6 +167,21 @@ class _UploadState extends State<Upload> {
                             //
                           }
                         }
+                        DatabaseReference teacherAssignmentRef = userDatabase.ref(
+                            'users/$teacherId/assignments/$assignmentName/submissions');
+                        await teacherAssignmentRef.set({studentId: "audio"});
+                        studentAssignments = [];
+                        DatabaseReference assignments =
+                            userRef.child("assignments");
+                        DatabaseEvent event2 = await assignments.once();
+                        final assignmentList =
+                            jsonEncode(event2.snapshot.value);
+                        final parsedAssignmentList = jsonDecode(assignmentList);
+                        if (parsedAssignmentList != null) {
+                          parsedAssignmentList.forEach((k, v) =>
+                              studentAssignments.add(Assignment(v["name"],
+                                  v["due-date"], v["text"], v["submitted"])));
+                        }
 
                         Navigator.push(
                             context,
@@ -212,27 +227,27 @@ class _UploadState extends State<Upload> {
                         ),
                       ),
                       const SizedBox(height: 20.0),
-                      Slider(
-                        min: 0,
-                        max: 20,
-                        value: position.inSeconds.toDouble(),
-                        onChanged: (value) async {
-                          final position = Duration(seconds: value.toInt());
-                          await audioPlayer.seek(position);
+                      // Slider(
+                      //   min: 0,
+                      //   max: 20,
+                      //   value: position.inSeconds.toDouble(),
+                      //   onChanged: (value) async {
+                      //     final position = Duration(seconds: value.toInt());
+                      //     await audioPlayer.seek(position);
 
-                          await audioPlayer.resume();
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(formatTime(position)),
-                            Text(formatTime(duration - position)),
-                          ],
-                        ),
-                      ),
+                      //     await audioPlayer.resume();
+                      //   },
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Text(formatTime(position)),
+                      //       Text(formatTime(duration - position)),
+                      //     ],
+                      //   ),
+                      // ),
                       const SizedBox(height: 10.0),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,

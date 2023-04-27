@@ -68,7 +68,7 @@ class _SubmissionListState extends State<SubmissionList> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                          for (var student in studentObjects)
+                          for (var student in studentsSubmitted)
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

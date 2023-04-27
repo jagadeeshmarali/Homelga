@@ -115,8 +115,8 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                               final parsedAssignmentList =
                                   jsonDecode(assignmentList);
                               parsedAssignmentList.forEach((k, v) =>
-                                  assignmentObjects.add(Assignment(
-                                      v["name"], v["due-date"], v["text"])));
+                                  assignmentObjects.add(Assignment(v["name"],
+                                      v["due-date"], v["text"], false)));
 
                               DatabaseReference students =
                                   teacherRef.child("students");
@@ -173,11 +173,47 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                       for (var assignment in assignmentObjects)
                         Column(children: [
                           ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                assignmentSelected = assignment;
+
+                                DatabaseReference assignmentSubmissionRef =
+                                    userDatabase.ref(
+                                        'users/$teacherId/assignments/${assignmentSelected.name}/submissions');
+                                DatabaseEvent event =
+                                    await assignmentSubmissionRef.once();
+                                Future<void> setStudentsSubmitted(
+                                    String? studentId) async {
+                                  Student student = {} as Student;
+                                  DatabaseReference studentRef =
+                                      userDatabase.ref('users/$studentId');
+                                  DatabaseEvent event3 =
+                                      await studentRef.once();
+                                  final jsonStudent =
+                                      jsonEncode(event3.snapshot.value);
+                                  final parsedStudent = jsonDecode(jsonStudent);
+                                  student = Student(
+                                      parsedStudent["name"],
+                                      parsedStudent["username"],
+                                      parsedStudent["password"]);
+                                  studentsSubmitted.add(student);
+                                }
+
+                                final jsonAssignmentSubmission =
+                                    jsonEncode(event.snapshot.value);
+                                final parsedAssignmentSubmission =
+                                    jsonDecode(jsonAssignmentSubmission);
+                                print(parsedAssignmentSubmission);
+                                if (parsedAssignmentSubmission != null) {
+                                  parsedAssignmentSubmission.forEach(
+                                      (k, v) => setStudentsSubmitted(k));
+                                }
+                                print(studentsSubmitted);
+
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const SubmissionList()));
+                                        builder: (context) =>
+                                            const SubmissionList()));
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF1F7961),

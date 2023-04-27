@@ -22,29 +22,24 @@ class Student {
 }
 
 List<Student> studentObjects = [];
+List<Student> studentsSubmitted = [];
 
 class Assignment {
   String name;
   String dueDate;
   String text;
-
-  Assignment(this.name, this.dueDate, this.text);
-}
-
-class StudentAssignment {
-  String name;
-  String dueDate;
-  String text;
   bool submitted;
 
-  StudentAssignment(this.name, this.dueDate, this.text, this.submitted);
+  Assignment(this.name, this.dueDate, this.text, this.submitted);
 }
 
 String accountType = "teacher";
 List<Assignment> assignmentObjects = [];
-List<StudentAssignment> studentAssignments = [];
-StudentAssignment studentAssignmentSelected = {} as StudentAssignment;
+List<Assignment> studentAssignments = [];
+Assignment studentAssignmentSelected = {} as Assignment;
 Student studentSelected = {} as Student;
+List<Assignment> studentAssignmentsSubmitted = [];
+Assignment assignmentSelected = {} as Assignment;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
