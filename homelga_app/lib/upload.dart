@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_sound/public/util/flutter_sound_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'student_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'package:uri_to_file/uri_to_file.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
 
@@ -51,7 +55,7 @@ class _UploadState extends State<Upload> {
   }
 
   Future setAudio() async {
-    audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+    //audioPlayer.setReleaseMode(ReleaseMode.LOOP);
     audioPlayer.setUrl(audioUrl);
   }
 
@@ -135,37 +139,34 @@ class _UploadState extends State<Upload> {
                     const SizedBox(width: 60.0),
                     ElevatedButton(
                       onPressed: () async {
-                        // final studentId =
-                        //     FirebaseAuth.instance.currentUser?.uid;
-                        // DatabaseReference userRef =
-                        //     userDatabase.ref('users/$studentId');
-                        // DatabaseEvent event = await userRef.once();
-                        // final student = jsonEncode(event.snapshot.value);
-                        // final parsedStudent = jsonDecode(student);
-                        // final teacherId = parsedStudent["teacher"];
-                        // print(teacherId);
-                        // final teacherStorageRef = storageRef.child(teacherId);
-                        // final studentStorageRef =
-                        //     teacherStorageRef.child(studentId!);
-                        // final assignmentStorageRef = studentStorageRef
-                        //     .child(studentAssignmentSelected.name);
-                        // // await userRef
-                        // //     .child("assignments")
-                        // //     .child(assignmentName)
-                        // //     .update({"submitted": true});
-                        // Directory appDocDir =
-                        //     await getApplicationDocumentsDirectory();
-                        // String filePath = '${appDocDir.absolute}/$storedAudio';
-                        // File file = File(filePath);
-                        // try {
-                        //   await assignmentStorageRef.putFile(file);
-                        // } on FirebaseException catch (e) {
-                        //   if (e.code == 'storage/unknown') {
-                        //     //
-                        //   } else if (e.code == 'storage/object-not-found') {
-                        //     //
-                        //   }
-                        // }
+                        final studentId =
+                            FirebaseAuth.instance.currentUser?.uid;
+                        DatabaseReference userRef =
+                            userDatabase.ref('users/$studentId');
+                        DatabaseEvent event = await userRef.once();
+                        final student = jsonEncode(event.snapshot.value);
+                        final parsedStudent = jsonDecode(student);
+                        final teacherId = parsedStudent["teacher"];
+                        print(teacherId);
+                        final teacherStorageRef = storageRef.child(teacherId);
+                        final studentStorageRef =
+                            teacherStorageRef.child(studentId!);
+                        final assignmentStorageRef = studentStorageRef
+                            .child(studentAssignmentSelected.name);
+                        DatabaseReference assignmentRef = userDatabase.ref(
+                            'users/$studentId/assignments/$assignmentName');
+                        await assignmentRef.update({"submitted": true});
+                        List<int> list = audioUrl.codeUnits;
+                        Uint8List bytes = Uint8List.fromList(list);
+                        try {
+                          await assignmentStorageRef.putData(bytes);
+                        } on FirebaseException catch (e) {
+                          if (e.code == 'storage/unknown') {
+                            //
+                          } else if (e.code == 'storage/object-not-found') {
+                            //
+                          }
+                        }
 
                         Navigator.push(
                             context,

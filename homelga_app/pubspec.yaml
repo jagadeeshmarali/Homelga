@@ -48,6 +48,7 @@ dependencies:
   firebase_storage: ^11.1.1
   path_provider: ^2.0.14
   ffmpeg_kit_flutter_full_gpl: ^5.1.0
+  uri_to_file: ^0.2.0
 
 dev_dependencies:
   flutter_test:

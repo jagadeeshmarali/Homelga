@@ -44,6 +44,7 @@ String accountType = "teacher";
 List<Assignment> assignmentObjects = [];
 List<StudentAssignment> studentAssignments = [];
 StudentAssignment studentAssignmentSelected = {} as StudentAssignment;
+Student studentSelected = {} as Student;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

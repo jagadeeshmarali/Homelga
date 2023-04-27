@@ -196,6 +196,7 @@ class _StudentsState extends State<Students> {
                                 children: [
                                   TextButton(
                                       onPressed: () {
+                                        studentSelected = student;
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (BuildContext context) {

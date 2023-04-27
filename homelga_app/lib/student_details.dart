@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class StudentDetails extends StatelessWidget {
   const StudentDetails({super.key});
@@ -37,22 +38,22 @@ class StudentDetails extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Student Name: ' + 'studentName',
-                        style: TextStyle(
+                    Text('Student Name: ${studentSelected.name}',
+                        style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Playfair',
                             fontWeight: FontWeight.w500,
                             color: Colors.white)),
                     const SizedBox(height: 40.0),
-                    const Text('Student Username: ' + 'studentUsername',
-                        style: TextStyle(
+                    Text('Student Username: ${studentSelected.username}',
+                        style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Playfair',
                             fontWeight: FontWeight.w500,
                             color: Colors.white)),
                     const SizedBox(height: 40.0),
-                    const Text('Student Password: ' + 'studentPassword',
-                        style: TextStyle(
+                    Text('Student Password: ${studentSelected.password}',
+                        style: const TextStyle(
                             fontSize: 24.0,
                             fontFamily: 'Playfair',
                             fontWeight: FontWeight.w500,

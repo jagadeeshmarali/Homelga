@@ -61,7 +61,7 @@ class _RecordState extends State<Record> {
     audioUrl = path!;
     final audioFile = File(path);
 
-    print('Recorded audio: $audioFile');
+    print('Recorded audio: $audioUrl');
   }
 
   @override
@@ -136,7 +136,7 @@ class _RecordState extends State<Record> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 30.0),
+                          // const SizedBox(height: 30.0),
                           // StreamBuilder<RecordingDisposition>(
                           //     stream: recorder.onProgress,
                           //     builder: (context, snapshot) {
