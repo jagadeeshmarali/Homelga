@@ -147,6 +147,7 @@ class _UploadState extends State<Upload> {
                         final student = jsonEncode(event.snapshot.value);
                         final parsedStudent = jsonDecode(student);
                         final teacherId = parsedStudent["teacher"];
+                        final studentName = parsedStudent["name"];
                         print(teacherId);
                         final teacherStorageRef = storageRef.child(teacherId);
                         final studentStorageRef =
@@ -169,7 +170,8 @@ class _UploadState extends State<Upload> {
                         }
                         DatabaseReference teacherAssignmentRef = userDatabase.ref(
                             'users/$teacherId/assignments/$assignmentName/submissions');
-                        await teacherAssignmentRef.set({studentId: "audio"});
+                        await teacherAssignmentRef
+                            .set({studentId: studentName});
                         studentAssignments = [];
                         DatabaseReference assignments =
                             userRef.child("assignments");

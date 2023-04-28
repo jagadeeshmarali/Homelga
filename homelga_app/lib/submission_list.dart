@@ -82,7 +82,7 @@ class _SubmissionListState extends State<SubmissionList> {
                                           ),
                                         );
                                       },
-                                      child: Text(student.name,
+                                      child: Text(student,
                                           style: const TextStyle(
                                               fontSize: 14.0,
                                               color: Colors.black,

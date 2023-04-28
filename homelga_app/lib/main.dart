@@ -22,7 +22,7 @@ class Student {
 }
 
 List<Student> studentObjects = [];
-List<Student> studentsSubmitted = [];
+List<String> studentsSubmitted = [];
 
 class Assignment {
   String name;
