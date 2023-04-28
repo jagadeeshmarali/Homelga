@@ -175,7 +175,7 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                           ElevatedButton(
                               onPressed: () async {
                                 assignmentSelected = assignment;
-
+                                studentsSubmitted.clear();
                                 DatabaseReference assignmentSubmissionRef =
                                     userDatabase.ref(
                                         'users/$teacherId/assignments/${assignmentSelected.name}/submissions');
