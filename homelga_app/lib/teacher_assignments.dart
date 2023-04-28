@@ -181,19 +181,6 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                                         'users/$teacherId/assignments/${assignmentSelected.name}/submissions');
                                 DatabaseEvent event =
                                     await assignmentSubmissionRef.once();
-                                // Future<void> setStudentsSubmitted(
-                                //     String studentId) async {
-                                //   String studentName = "";
-                                //   DatabaseReference studentRef =
-                                //       userDatabase.ref('users/$studentId');
-                                //   DatabaseEvent event3 =
-                                //       await studentRef.once();
-                                //   final jsonStudent =
-                                //       jsonEncode(event3.snapshot.value);
-                                //   final parsedStudent = jsonDecode(jsonStudent);
-                                //   studentName = parsedStudent["name"];
-                                //   studentsSubmitted.add(student);
-                                // }
 
                                 final jsonAssignmentSubmission =
                                     jsonEncode(event.snapshot.value);
@@ -201,8 +188,8 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                                     jsonDecode(jsonAssignmentSubmission);
                                 print(parsedAssignmentSubmission);
                                 if (parsedAssignmentSubmission != null) {
-                                  parsedAssignmentSubmission.forEach(
-                                      (k, v) => studentsSubmitted.add(v));
+                                  parsedAssignmentSubmission.forEach((k, v) =>
+                                      studentsSubmitted.add(v["name"]));
                                 }
                                 print(studentsSubmitted);
 

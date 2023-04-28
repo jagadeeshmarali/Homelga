@@ -136,25 +136,7 @@ class _RecordState extends State<Record> {
                               ),
                             ),
                           ),
-                          // const SizedBox(height: 30.0),
-                          // StreamBuilder<RecordingDisposition>(
-                          //     stream: recorder.onProgress,
-                          //     builder: (context, snapshot) {
-                          //       final duration = snapshot.hasData
-                          //           ? snapshot.data!.duration
-                          //           : Duration.zero;
-
-                          //       String twoDigits(int n) =>
-                          //           n.toString().padLeft(5);
-                          //       final twoDigitMinutes =
-                          //           twoDigits(duration.inMinutes.remainder(60));
-                          //       final twoDigitSeconds =
-                          //           twoDigits(duration.inSeconds.remainder(60));
-                          //       return Text('$twoDigitMinutes:$twoDigitSeconds',
-                          //           style: const TextStyle(
-                          //               fontSize: 20,
-                          //               fontWeight: FontWeight.bold));
-                          //     })
+                          const SizedBox(height: 30.0),
                         ]),
                     InkWell(
                       onTap: () async {

@@ -171,7 +171,8 @@ class _UploadState extends State<Upload> {
                         DatabaseReference teacherAssignmentRef = userDatabase.ref(
                             'users/$teacherId/assignments/$assignmentName/submissions');
                         await teacherAssignmentRef
-                            .set({studentId: studentName});
+                            .child(studentId)
+                            .set({"name": studentName});
                         studentAssignments = [];
                         DatabaseReference assignments =
                             userRef.child("assignments");
@@ -180,9 +181,10 @@ class _UploadState extends State<Upload> {
                             jsonEncode(event2.snapshot.value);
                         final parsedAssignmentList = jsonDecode(assignmentList);
                         if (parsedAssignmentList != null) {
-                          parsedAssignmentList.forEach((k, v) =>
-                              studentAssignments.add(Assignment(v["name"],
-                                  v["due-date"], v["text"], v["submitted"])));
+                          parsedAssignmentList.forEach((k, v) => !v["submitted"]
+                              ? studentAssignments.add(Assignment(v["name"],
+                                  v["due-date"], v["text"], v["submitted"]))
+                              : print(""));
                         }
 
                         Navigator.push(

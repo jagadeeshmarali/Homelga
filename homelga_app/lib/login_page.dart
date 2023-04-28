@@ -181,11 +181,13 @@ class LoginPage extends StatelessWidget {
                                   jsonDecode(assignmentList);
                               if (parsedAssignmentList != null) {
                                 parsedAssignmentList.forEach((k, v) =>
-                                    studentAssignments.add(Assignment(
-                                        v["name"],
-                                        v["due-date"],
-                                        v["text"],
-                                        v["submitted"])));
+                                    !v["submitted"]
+                                        ? studentAssignments.add(Assignment(
+                                            v["name"],
+                                            v["due-date"],
+                                            v["text"],
+                                            v["submitted"]))
+                                        : print(""));
                               }
                               Navigator.push(
                                   context,
