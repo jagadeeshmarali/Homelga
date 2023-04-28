@@ -200,7 +200,7 @@ class _StudentsState extends State<Students> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (BuildContext context) {
-                                              return StudentDetails();
+                                              return const StudentDetails();
                                             },
                                           ),
                                         );

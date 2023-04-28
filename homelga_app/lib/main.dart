@@ -40,6 +40,7 @@ Assignment studentAssignmentSelected = {} as Assignment;
 Student studentSelected = {} as Student;
 List<Assignment> studentAssignmentsSubmitted = [];
 Assignment assignmentSelected = {} as Assignment;
+String studentNameSelected = "";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

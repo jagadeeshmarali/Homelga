@@ -151,7 +151,7 @@ class _UploadState extends State<Upload> {
                         print(teacherId);
                         final teacherStorageRef = storageRef.child(teacherId);
                         final studentStorageRef =
-                            teacherStorageRef.child(studentId!);
+                            teacherStorageRef.child(studentName);
                         final assignmentStorageRef = studentStorageRef
                             .child(studentAssignmentSelected.name);
                         DatabaseReference assignmentRef = userDatabase.ref(
@@ -171,7 +171,7 @@ class _UploadState extends State<Upload> {
                         DatabaseReference teacherAssignmentRef = userDatabase.ref(
                             'users/$teacherId/assignments/$assignmentName/submissions');
                         await teacherAssignmentRef
-                            .child(studentId)
+                            .child(studentName)
                             .set({"name": studentName});
                         studentAssignments = [];
                         DatabaseReference assignments =
@@ -230,37 +230,12 @@ class _UploadState extends State<Upload> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20.0),
-                      // Slider(
-                      //   min: 0,
-                      //   max: 20,
-                      //   value: position.inSeconds.toDouble(),
-                      //   onChanged: (value) async {
-                      //     final position = Duration(seconds: value.toInt());
-                      //     await audioPlayer.seek(position);
-
-                      //     await audioPlayer.resume();
-                      //   },
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     children: [
-                      //       Text(formatTime(position)),
-                      //       Text(formatTime(duration - position)),
-                      //     ],
-                      //   ),
-                      // ),
-                      const SizedBox(height: 10.0),
+                      const SizedBox(height: 30.0),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
                               onTap: () async {
-                                // setState(() {
-                                //   isPlaying = !isPlaying;
-                                // });
                                 if (isPlaying) {
                                   await audioPlayer.pause();
                                 } else {

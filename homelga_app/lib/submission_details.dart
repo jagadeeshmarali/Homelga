@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_sound/public/util/flutter_sound_helper.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'student_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'package:uri_to_file/uri_to_file.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
 
@@ -22,7 +26,45 @@ class SubmissionDetails extends StatefulWidget {
 
 class _SubmissionDetailsState extends State<SubmissionDetails> {
   bool isPlaying = false;
-  // String assignmentName = studentAssignmentSelected.name;
+  final audioPlayer = AudioPlayer();
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
+  String assignmentText = assignmentSelected.text;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   setAudio();
+
+  //   audioPlayer.onPlayerStateChanged.listen((state) {
+  //     setState(() {
+  //       isPlaying = state == PlayerState.PLAYING;
+  //     });
+  //   });
+  //   // audioPlayer.onDurationChanged.listen((newDuration) {
+  //   //   setState(() {
+  //   //     duration = newDuration;
+  //   //   });
+  //   // });
+  //   // audioPlayer.onAudioPositionChanged.listen((newPosition) {
+  //   //   setState(() {
+  //   //     position = newPosition;
+  //   //   });
+  //   //});
+  // }
+
+  // Future setAudio() async {
+  //   audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+  //   audioPlayer.setUrl(audioUrl);
+  // }
+
+  // @override
+  // void dispose() {
+  //   audioPlayer.dispose();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,6 +99,16 @@ class _SubmissionDetailsState extends State<SubmissionDetails> {
                 Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Text(
+                        studentNameSelected,
+                        style: const TextStyle(
+                            fontSize: 32.0,
+                            fontFamily: 'Playfair',
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 30.0),
                       Container(
                         width: 333.0,
                         height: 300.0,
@@ -69,8 +121,7 @@ class _SubmissionDetailsState extends State<SubmissionDetails> {
                         ),
                         child: SingleChildScrollView(
                           child: Text(
-                            // studentAssignmentSelected.text,
-                            'Student Assignment Text Here',
+                            assignmentText,
                             style: const TextStyle(
                                 fontSize: 20.0,
                                 fontFamily: 'Playfair',
@@ -86,9 +137,11 @@ class _SubmissionDetailsState extends State<SubmissionDetails> {
                           children: [
                             InkWell(
                               onTap: () async {
-                                setState(() {
-                                  isPlaying = !isPlaying;
-                                });
+                                // if (isPlaying) {
+                                //   await audioPlayer.pause();
+                                // } else {
+                                //   await audioPlayer.resume();
+                                // }
                               },
                               child: Ink.image(
                                 image: isPlaying

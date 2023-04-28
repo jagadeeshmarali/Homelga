@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'main.dart';
@@ -73,7 +75,26 @@ class _SubmissionListState extends State<SubmissionList> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   TextButton(
-                                      onPressed: () {
+                                      onPressed: () async {
+                                        studentNameSelected = student;
+                                        print(
+                                            'Student Name Selected: $studentNameSelected');
+                                        final submissionRef =
+                                            FirebaseStorage.instance.refFromURL(
+                                                "gs://homelga.appspot.com/$teacherId/$studentNameSelected/${assignmentSelected.name}");
+
+                                        try {
+                                          const maxSize = 1024;
+                                          final Uint8List? data =
+                                              await submissionRef
+                                                  .getData(maxSize);
+                                          print(data);
+                                          audioUrl = utf8.decode(data!);
+                                          print(audioUrl);
+                                        } on FirebaseException catch (e) {
+                                          print(e);
+                                        }
+
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (BuildContext context) {

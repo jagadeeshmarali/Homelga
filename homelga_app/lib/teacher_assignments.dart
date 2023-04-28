@@ -175,6 +175,7 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                           ElevatedButton(
                               onPressed: () async {
                                 assignmentSelected = assignment;
+                                print(assignmentSelected);
                                 studentsSubmitted.clear();
                                 DatabaseReference assignmentSubmissionRef =
                                     userDatabase.ref(
@@ -191,7 +192,7 @@ class _TeacherAssignmentsState extends State<TeacherAssignments> {
                                   parsedAssignmentSubmission.forEach((k, v) =>
                                       studentsSubmitted.add(v["name"]));
                                 }
-                                print(studentsSubmitted);
+                                print('Students Submitted: $studentsSubmitted');
 
                                 Navigator.push(
                                     context,
